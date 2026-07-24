@@ -1,26 +1,201 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --rare-cream: #f6f1e6;
+  --rare-cream-deep: #ebe3d2;
+  --rare-green: #74a942;
+  --rare-green-deep: #5a8532;
+  --rare-gold: #d4a13d;
+  --rare-gold-soft: #e8c878;
+  --rare-charcoal: #2c2c2c;
+  --rare-ink: #3a342c;
+  --rare-muted: #7a7268;
+  --rare-white: #fffcf7;
+  --rare-border: #e2d8c4;
+  --background: var(--rare-cream);
+  --foreground: var(--rare-charcoal);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-rare-cream: var(--rare-cream);
+  --color-rare-cream-deep: var(--rare-cream-deep);
+  --color-rare-green: var(--rare-green);
+  --color-rare-green-deep: var(--rare-green-deep);
+  --color-rare-gold: var(--rare-gold);
+  --color-rare-gold-soft: var(--rare-gold-soft);
+  --color-rare-charcoal: var(--rare-charcoal);
+  --color-rare-ink: var(--rare-ink);
+  --color-rare-muted: var(--rare-muted);
+  --color-rare-white: var(--rare-white);
+  --color-rare-border: var(--rare-border);
+  --font-sans: var(--font-nunito);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--rare-cream);
+  color: var(--rare-charcoal);
+  font-family: var(--font-nunito), "Avenir Next", Avenir, "Nunito Sans", system-ui,
+    sans-serif;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 120% 80% at 100% 0%, rgba(212, 161, 61, 0.08), transparent 50%),
+    radial-gradient(ellipse 80% 60% at 0% 100%, rgba(116, 169, 66, 0.07), transparent 45%);
+}
+
+::selection {
+  background: rgba(116, 169, 66, 0.25);
+}
+
+/* Form controls */
+.rare-input,
+.rare-select,
+.rare-textarea {
+  width: 100%;
+  border: 1px solid var(--rare-border);
+  background: var(--rare-white);
+  color: var(--rare-charcoal);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rare-input:focus,
+.rare-select:focus,
+.rare-textarea:focus {
+  border-color: var(--rare-green);
+  box-shadow: 0 0 0 3px rgba(116, 169, 66, 0.18);
+}
+
+.rare-textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.rare-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--rare-muted);
+  margin-bottom: 0.45rem;
+}
+
+.rare-hint {
+  font-size: 0.9rem;
+  color: var(--rare-muted);
+  line-height: 1.5;
+}
+
+.rare-error {
+  color: #a33a2f;
+  font-size: 0.875rem;
+  margin-top: 0.35rem;
+}
+
+.rare-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.9rem 1.6rem;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.rare-btn:active {
+  transform: translateY(1px);
+}
+
+.rare-btn-primary {
+  background: var(--rare-green);
+  color: white;
+  box-shadow: 0 8px 24px rgba(90, 133, 50, 0.22);
+}
+
+.rare-btn-primary:hover {
+  background: var(--rare-green-deep);
+}
+
+.rare-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.rare-btn-ghost {
+  background: transparent;
+  color: var(--rare-green-deep);
+  border: 1px solid var(--rare-border);
+}
+
+.rare-btn-ghost:hover {
+  border-color: var(--rare-green);
+  background: rgba(116, 169, 66, 0.06);
+}
+
+.rare-card {
+  background: var(--rare-white);
+  border: 1px solid var(--rare-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 40px rgba(58, 52, 44, 0.04);
+}
+
+.paper-grain {
+  position: relative;
+}
+
+.paper-grain::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Progress pinwheel blades */
+.blade-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--rare-border);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.blade-dot.done {
+  background: var(--rare-green);
+  transform: scale(1.15);
+}
+
+.blade-dot.active {
+  background: var(--rare-gold);
+  box-shadow: 0 0 0 4px rgba(212, 161, 61, 0.2);
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
 }

@@ -1,65 +1,127 @@
 import Image from "next/image";
+import Link from "next/link";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { TOUCHSTONES } from "@/lib/touchstones";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+    <div className="paper-grain flex min-h-screen flex-col">
+      <SiteHeader />
+
+      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-5 pb-16 pt-4">
+        <section className="rare-card overflow-hidden">
+          <div className="relative border-b border-rare-border/70 bg-gradient-to-br from-rare-cream via-rare-white to-[#f3e9cf] px-6 py-12 text-center sm:px-10 sm:py-16">
+            <div className="mx-auto mb-6 flex justify-center">
+              <Image
+                src="/rare-logo.jpeg"
+                alt="RARE Ginkgo"
+                width={72}
+                height={72}
+                className="rounded-full shadow-md"
+                priority
+              />
+            </div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-rare-gold">
+              Bridges · The RARE Collection
+            </p>
+            <h1 className="text-3xl font-extrabold leading-tight text-rare-green-deep sm:text-4xl">
+              RARE Conscious Travel Awards
+            </h1>
+            <p className="mt-2 text-lg font-semibold text-rare-ink">
+              Self Nomination
+            </p>
+            <p className="mx-auto mt-5 max-w-xl text-[1.05rem] leading-relaxed text-rare-muted">
+              Celebrate owner-led hotels that put place, people, and planet at
+              the heart of hospitality. Nominations are guided by the{" "}
+              <strong className="font-semibold text-rare-ink">Pinwheel</strong> —
+              RARE&apos;s framework for responsible, respectful, and
+              place-relevant travel.
+            </p>
+            <p className="mt-4 text-sm font-medium text-rare-ink/80">
+              About 12 minutes · 9 short touchstone prompts · No audit paperwork
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link href="/nominate" className="rare-btn rare-btn-primary">
+                Begin nomination
+              </Link>
+              <a
+                href="#how-it-works"
+                className="rare-btn rare-btn-ghost"
+              >
+                How it works
+              </a>
+            </div>
+          </div>
+
+          <div id="how-it-works" className="grid gap-0 sm:grid-cols-3">
+            {[
+              {
+                n: "01",
+                t: "Your property",
+                d: "Choose your hotel, contact details, and award category.",
+              },
+              {
+                n: "02",
+                t: "Your Pinwheel",
+                d: "Nine simple prompts — one for each touchstone. Real practice, few sentences.",
+              },
+              {
+                n: "03",
+                t: "Submit",
+                d: "Optional signature story, then send. The jury reviews your nomination.",
+              },
+            ].map((item) => (
+              <div
+                key={item.n}
+                className="border-t border-rare-border/70 p-6 sm:border-t-0 sm:border-l sm:first:border-l-0"
+              >
+                <div className="text-xs font-bold tracking-[0.18em] text-rare-gold">
+                  {item.n}
+                </div>
+                <h2 className="mt-2 font-extrabold text-rare-ink">{item.t}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-rare-muted">
+                  {item.d}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-4 text-center text-sm font-bold uppercase tracking-[0.18em] text-rare-muted">
+            The nine touchstones
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {TOUCHSTONES.map((t) => (
+              <div
+                key={t.key}
+                className="flex items-start gap-3 rounded-2xl border border-rare-border bg-rare-white/80 px-4 py-3"
+              >
+                <span
+                  className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${
+                    t.kind === "cardinal" ? "bg-rare-green" : "bg-rare-gold"
+                  }`}
+                />
+                <div>
+                  <div className="font-bold text-rare-ink">{t.name}</div>
+                  <div className="text-sm text-rare-muted line-clamp-2">
+                    {t.definition}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="mt-12 text-center">
+          <Link href="/nominate" className="rare-btn rare-btn-primary">
+            Begin nomination
+          </Link>
         </div>
       </main>
+
+      <SiteFooter />
     </div>
   );
 }

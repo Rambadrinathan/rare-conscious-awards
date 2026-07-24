@@ -1,0 +1,1393 @@
+[
+  {
+    "name": "Assam Bengal Navigation",
+    "state": "Assam",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Bagh Villas, Kanha TR",
+    "state": "Madhya Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Bari Kothi, Murshidabad",
+    "state": "West Bengal",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Bera Safari Lodge, Jawai",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Chanoud Garh, Pali",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Chapslee , Shimla",
+    "state": "Himachal Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Cranganor History Café & Riverside Château , Muziris",
+    "state": "Kerala",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Dera Amer, near Jaipur",
+    "state": "Rajasthan",
+    "country": "IN"
+  },
+  {
+    "name": "Dhyaana Farms",
+    "state": "Maharashtra",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Diphlu River Lodge, Kaziranga",
+    "state": "Assam",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Glenburn Tea Estate, Darjeeling",
+    "state": "West Bengal",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Golden Haveli, Old Delhi",
+    "state": "Delhi",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Haveli Dharampura, Old Delhi",
+    "state": "Delhi",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Jamtara Wilderness Camp, Pench TR",
+    "state": "Madhya Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Jim’s Jungle Retreat, Corbett",
+    "state": "Uttarakhand",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "KAAV Safari Lodge",
+    "state": "Karnataka",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Karan Mahal, Srinagar",
+    "state": "Jammu and Kashmir",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Khem Villas, Ranthambore TR",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Killa Bhawan, Jaisalmer",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Kipling Camp, Kanha TR",
+    "state": "Madhya Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Laalee , Jaipur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Lchang Nang Retreat, Nubra",
+    "state": "Ladakh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "MANVĀR Kumat Thar Serenity Camp, near Jodhpur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Mihir Garh, Jodhpur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Nadis Hotel, Srinagar",
+    "state": "Jammu and Kashmir",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Neeleshwar Hermitage, Padnekkad",
+    "state": "Kerala",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Nimmu House, Nimmoo",
+    "state": "Ladakh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Pepper Trail, Wayanad",
+    "state": "Kerala",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Premkunj , Udaipur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Purity, Muhamma",
+    "state": "Kerala",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Qayaam Gah , Srinagar",
+    "state": "Jammu and Kashmir",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "RAAS Chhatrasagar , Nimaj",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "RAAS Devigarh Udaipur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "RAAS Jodhpur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Rajmahal Palace RAAS Jaipur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Ramathra Fort, Karauli",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Rann Riders, Dasada",
+    "state": "Gujarat",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Reni Pani Jungle Lodge, Satpura TR",
+    "state": "Madhya Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Rohet Garh, Jodhpur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Sadhrana Bagh, Gurugram",
+    "state": "Haryana",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Sanctuary Resort, Chitwan",
+    "state": "Lumbini Zone",
+    "country": {
+      "flag": "🇳🇵",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kathmandu",
+          "gmtOffsetName": "UTC+05:45",
+          "abbreviation": "NPT",
+          "gmtOffset": 20700,
+          "tzName": "Nepal Time"
+        }
+      ],
+      "isoCode": "NP",
+      "latitude": "28.00000000",
+      "name": "Nepal",
+      "phonecode": "977",
+      "currency": "NPR",
+      "longitude": "84.00000000"
+    }
+  },
+  {
+    "name": "Sawantwadi Palace",
+    "state": "Maharashtra",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Shahpura Bagh, near Bhilwara",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Sitla Estate, Mukteshwar",
+    "state": "Uttarakhand",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Snow Leopard Lodge, Ulley Ladakh",
+    "state": "Ladakh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Sukoon Houseboat, Srinagar",
+    "state": "Jammu and Kashmir",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Svasara Jungle Lodge, Tadoba TR",
+    "state": "Maharashtra",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Belgadia Palace, Mayurbhanj",
+    "state": "Odisha",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Doksa, Mane Village, Spiti Valley, Himachal Pradesh",
+    "state": "Himachal Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Glenburn Penthouse, Kolkata",
+    "state": "West Bengal",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Grand Dragon, Leh",
+    "state": "Ladakh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The House of MG",
+    "state": "Gujarat",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Lodge at Wah, Palampur",
+    "state": "Himachal Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Malabar House, Kochi",
+    "state": "Kerala",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Mountbatten Lodge Ranakpur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Nanee , Bhaktapur",
+    "state": "Bagmati Zone",
+    "country": {
+      "flag": "🇳🇵",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kathmandu",
+          "gmtOffsetName": "UTC+05:45",
+          "abbreviation": "NPT",
+          "gmtOffset": 20700,
+          "tzName": "Nepal Time"
+        }
+      ],
+      "isoCode": "NP",
+      "latitude": "28.00000000",
+      "name": "Nepal",
+      "phonecode": "977",
+      "currency": "NPR",
+      "longitude": "84.00000000"
+    }
+  },
+  {
+    "name": "The Rohet House, Jodhpur",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "The Sarai at Toria , Khajuraho",
+    "state": "Madhya Pradesh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Tiger Mountain Pokhara Lodge",
+    "state": "Gandaki Zone",
+    "country": {
+      "flag": "🇳🇵",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kathmandu",
+          "gmtOffsetName": "UTC+05:45",
+          "abbreviation": "NPT",
+          "gmtOffset": 20700,
+          "tzName": "Nepal Time"
+        }
+      ],
+      "isoCode": "NP",
+      "latitude": "28.00000000",
+      "name": "Nepal",
+      "phonecode": "977",
+      "currency": "NPR",
+      "longitude": "84.00000000"
+    }
+  },
+  {
+    "name": "Tipai Wildlife Luxuries, Tipeshwar, Maharashtra",
+    "state": "Maharashtra",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Utsav Camp Sariska",
+    "state": "Rajasthan",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Virsa Baltistan",
+    "state": "Ladakh",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Windermere Estate, Munnar",
+    "state": "Kerala",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  },
+  {
+    "name": "Windermere River House, Neriamangalam",
+    "state": "Kerala",
+    "country": {
+      "flag": "🇮🇳",
+      "timezones": [
+        {
+          "zoneName": "Asia/Kolkata",
+          "gmtOffsetName": "UTC+05:30",
+          "abbreviation": "IST",
+          "gmtOffset": 19800,
+          "tzName": "Indian Standard Time"
+        }
+      ],
+      "isoCode": "IN",
+      "latitude": "20.00000000",
+      "name": "India",
+      "phonecode": "91",
+      "currency": "INR",
+      "longitude": "77.00000000"
+    }
+  }
+]
