@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { listNominations } from "@/lib/store";
-import { AWARD_CATEGORIES, TOUCHSTONES } from "@/lib/touchstones";
+import { awardTitle, TOUCHSTONES } from "@/lib/touchstones";
 import { isAdminAuthorized } from "@/lib/admin-auth";
 
 function csvEscape(value: string): string {
@@ -14,9 +14,6 @@ export async function GET(request: Request) {
   }
 
   const rows = await listNominations();
-  const awardMap = Object.fromEntries(
-    AWARD_CATEGORIES.map((a) => [a.id, a.title])
-  );
 
   const headers = [
     "id",
@@ -49,7 +46,7 @@ export async function GET(request: Request) {
       n.created_at,
       n.status,
       n.hotel_name,
-      awardMap[n.award_category] || n.award_category,
+      awardTitle(n.award_category),
       n.contact_name,
       n.contact_email,
       n.contact_phone || "",

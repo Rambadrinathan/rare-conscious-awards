@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { listNominations } from "@/lib/store";
-import { AWARD_CATEGORIES } from "@/lib/touchstones";
+import { awardTitle } from "@/lib/touchstones";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AdminNominationDetail } from "@/components/AdminNominationDetail";
@@ -37,9 +37,6 @@ export default async function AdminPage({
   }
 
   const nominations = await listNominations();
-  const awardMap = Object.fromEntries(
-    AWARD_CATEGORIES.map((a) => [a.id, a.title])
-  );
   const selected = params.id
     ? nominations.find((n) => n.id === params.id)
     : null;
@@ -87,7 +84,7 @@ export default async function AdminPage({
                 >
                   <div className="font-bold text-rare-ink">{n.hotel_name}</div>
                   <div className="mt-0.5 text-xs text-rare-muted">
-                    {awardMap[n.award_category] || n.award_category}
+                    {awardTitle(n.award_category)}
                   </div>
                   <div className="mt-1 text-xs text-rare-muted">
                     {new Date(n.created_at).toLocaleString()} ·{" "}

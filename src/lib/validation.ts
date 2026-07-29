@@ -42,7 +42,7 @@ export const nominationSchema = z
         ctx.addIssue({
           code: "custom",
           path: ["nominee_name"],
-          message: "Nominee name is required for the Individual Crusader award",
+          message: "Nominee name is required for the Sustainability Lightkeeper award",
         });
       }
     }

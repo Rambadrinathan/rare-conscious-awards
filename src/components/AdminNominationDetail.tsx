@@ -1,8 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
-import { AWARD_CATEGORIES, TOUCHSTONES } from "@/lib/touchstones";
+import { useState } from "react";
+import {
+  AWARD_CATEGORIES,
+  awardTitle,
+  TOUCHSTONES,
+} from "@/lib/touchstones";
 import type { NominationRecord } from "@/lib/types";
 
 type Props = {
@@ -43,11 +47,6 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
         answer_text: a?.answer_text || "",
       };
     })
-  );
-
-  const awardMap = useMemo(
-    () => Object.fromEntries(AWARD_CATEGORIES.map((a) => [a.id, a.title])),
-    []
   );
 
   const headers = {
@@ -139,7 +138,7 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
             </h2>
           )}
           <p className="mt-1 text-sm text-rare-muted">
-            {awardMap[awardCategory] || awardCategory}
+            {awardTitle(awardCategory)}
             {nomineeName
               ? ` · Nominee: ${nomineeName}${
                   nomineeRole ? ` (${nomineeRole})` : ""
@@ -248,7 +247,7 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
             </select>
           ) : (
             <p className="text-sm text-rare-ink">
-              {awardMap[awardCategory] || awardCategory}
+              {awardTitle(awardCategory)}
             </p>
           )}
         </div>

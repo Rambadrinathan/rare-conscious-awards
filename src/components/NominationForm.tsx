@@ -39,7 +39,7 @@ export function NominationForm() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [awardCategory, setAwardCategory] =
-    useState<AwardCategoryId>("heros_journey_hotel");
+    useState<AwardCategoryId>("sustainability_lighthouse");
   const [nomineeName, setNomineeName] = useState("");
   const [nomineeRole, setNomineeRole] = useState("");
   const [answers, setAnswers] = useState<AnswerState[]>(initialAnswers);
@@ -182,8 +182,10 @@ export function NominationForm() {
               Your property
             </h2>
             <p className="rare-hint mt-2">
-              Tell us who is nominating and which award you&apos;re entering.
-              About 12 minutes for the full form.
+              Open to Bridges participating hotels. Choose{" "}
+              <strong>Sustainability Lighthouse</strong> (property) or{" "}
+              <strong>Sustainability Lightkeeper</strong> (individual). About 12
+              minutes for the full form.
             </p>
           </div>
 

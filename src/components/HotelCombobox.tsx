@@ -37,7 +37,7 @@ export function HotelCombobox({
       <input
         id="hotel"
         className="rare-input"
-        placeholder="Start typing your RARE hotel…"
+        placeholder="Start typing your Bridges hotel…"
         value={query}
         autoComplete="off"
         onChange={(e) => {
@@ -53,7 +53,10 @@ export function HotelCombobox({
       />
       {open && filtered.length > 0 && !notListed && (
         <ul className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-xl border border-rare-border bg-rare-white shadow-lg">
-          {filtered.map((h) => (
+          {filtered.map((h) => {
+            const countryLabel =
+              typeof h.country === "string" ? h.country : null;
+            return (
             <li key={h.name}>
               <button
                 type="button"
@@ -66,14 +69,15 @@ export function HotelCombobox({
                 }}
               >
                 <span className="font-semibold text-rare-charcoal">{h.name}</span>
-                {(h.state || h.country) && (
+                {(h.state || countryLabel) && (
                   <span className="text-xs text-rare-muted">
-                    {[h.state, h.country].filter(Boolean).join(" · ")}
+                    {[h.state, countryLabel].filter(Boolean).join(" · ")}
                   </span>
                 )}
               </button>
             </li>
-          ))}
+            );
+          })}
         </ul>
       )}
       <label className="mt-3 flex cursor-pointer items-start gap-2 text-sm text-rare-ink">
@@ -85,7 +89,9 @@ export function HotelCombobox({
             onChange(query, e.target.checked);
           }}
         />
-        <span>My hotel isn&apos;t in the list — I&apos;ll type the full name</span>
+        <span>
+          My Bridges hotel isn&apos;t listed yet — I&apos;ll type the full name
+        </span>
       </label>
       {error && <p className="rare-error">{error}</p>}
     </div>

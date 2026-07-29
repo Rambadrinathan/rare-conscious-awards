@@ -113,22 +113,37 @@ export const TOUCHSTONES: Touchstone[] = [
   },
 ];
 
-/** Provisional award categories — replace when official email copy is locked */
+/**
+ * Self-nomination award categories (Pinwheel form).
+ * Vote-based awards (separate from this form) will be added later.
+ */
 export const AWARD_CATEGORIES = [
   {
-    id: "heros_journey_hotel",
-    title: "A Hero's Journey — Hotel",
+    id: "sustainability_lighthouse",
+    title: "Sustainability Lighthouse",
     description:
-      "For a RARE property whose responsible practices, as a whole, show a clear journey toward place-sensitive, community-aware hospitality.",
+      "For a Bridges hotel whose sustainability practices, as a whole, set a clear standard — the property that lights the way for place-sensitive, responsible hospitality.",
     needsNominee: false,
   },
   {
-    id: "heros_journey_individual",
-    title: "A Hero's Journey — Individual Crusader",
+    id: "sustainability_lightkeeper",
+    title: "Sustainability Lightkeeper",
     description:
-      "For a named person at a RARE property who has championed responsible tourism with consistency, care, and measurable effort.",
+      "For a named individual within a Bridges hotel who is actively pushing forward the property’s sustainability practices with consistency, care, and measurable effort.",
     needsNominee: true,
   },
 ] as const;
 
 export type AwardCategoryId = (typeof AWARD_CATEGORIES)[number]["id"];
+
+/** Legacy category ids still present on older nominations */
+export const LEGACY_AWARD_TITLES: Record<string, string> = {
+  heros_journey_hotel: "Sustainability Lighthouse (legacy)",
+  heros_journey_individual: "Sustainability Lightkeeper (legacy)",
+};
+
+export function awardTitle(id: string): string {
+  const current = AWARD_CATEGORIES.find((a) => a.id === id);
+  if (current) return current.title;
+  return LEGACY_AWARD_TITLES[id] || id;
+}

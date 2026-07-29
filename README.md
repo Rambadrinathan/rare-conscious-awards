@@ -39,9 +39,20 @@ Without Supabase, submissions still work and are stored in `data/nominations.jso
 - Font: Nunito Sans (Avenir alternative)
 - Logo: `public/rare-logo.jpeg`
 
-## Award categories
+## Award categories (self-nomination form)
 
-Provisional placeholders in `src/lib/touchstones.ts` — update when official copy is locked:
+Defined in `src/lib/touchstones.ts`:
 
-1. A Hero's Journey — Hotel  
-2. A Hero's Journey — Individual Crusader  
+1. **Sustainability Lighthouse** — hotel / property award for best sustainability practices  
+2. **Sustainability Lightkeeper** — individual within a hotel driving sustainability forward  
+
+Participating hotels: Bridges list only (`src/data/hotels.json`), rebuilt from  
+`Participating Hotels Status BRIDGES July 20.xlsx` via `scripts/build_hotels.py`.
+
+**Vote-based awards** (three separate awards, separate form — not in this nomination flow yet).
+
+## Updating the hotel list
+
+```bash
+python scripts/build_hotels.py
+```

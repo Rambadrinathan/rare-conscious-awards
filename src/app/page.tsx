@@ -32,8 +32,19 @@ export default function HomePage() {
               Self Nomination
             </p>
             <p className="mx-auto mt-5 max-w-xl text-[1.05rem] leading-relaxed text-rare-muted">
-              Celebrate owner-led hotels that put place, people, and planet at
-              the heart of hospitality. Nominations are guided by the{" "}
+              Open to{" "}
+              <strong className="font-semibold text-rare-ink">
+                Bridges participating hotels
+              </strong>
+              . Nominate for{" "}
+              <strong className="font-semibold text-rare-ink">
+                Sustainability Lighthouse
+              </strong>{" "}
+              (property) or{" "}
+              <strong className="font-semibold text-rare-ink">
+                Sustainability Lightkeeper
+              </strong>{" "}
+              (individual). Guided by the{" "}
               <strong className="font-semibold text-rare-ink">Pinwheel</strong> —
               RARE&apos;s framework for responsible, respectful, and
               place-relevant travel.
@@ -59,7 +70,7 @@ export default function HomePage() {
               {
                 n: "01",
                 t: "Your property",
-                d: "Choose your hotel, contact details, and award category.",
+                d: "Choose your Bridges hotel, contact details, and award (Lighthouse or Lightkeeper).",
               },
               {
                 n: "02",
