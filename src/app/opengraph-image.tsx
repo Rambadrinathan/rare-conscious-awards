@@ -11,9 +11,9 @@ export default async function Image() {
   let logoSrc: string | undefined;
   try {
     const bytes = await readFile(
-      path.join(process.cwd(), "public", "rare-logo.jpeg")
+      path.join(process.cwd(), "public", "rare-logo.png")
     );
-    logoSrc = `data:image/jpeg;base64,${bytes.toString("base64")}`;
+    logoSrc = `data:image/png;base64,${bytes.toString("base64")}`;
   } catch {
     logoSrc = undefined;
   }
