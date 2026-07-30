@@ -16,9 +16,9 @@ export const metadata: Metadata = {
   description:
     "Nominate your RARE property for the Conscious Travel Awards, guided by the Pinwheel touchstones.",
   icons: {
-    icon: [{ url: "/rare-logo.jpeg", type: "image/jpeg" }],
-    apple: [{ url: "/rare-logo.jpeg", type: "image/jpeg" }],
-    shortcut: "/rare-logo.jpeg",
+    icon: [{ url: "/rare-logo.png", type: "image/png" }],
+    apple: [{ url: "/rare-logo.png", type: "image/png" }],
+    shortcut: "/rare-logo.png",
   },
   openGraph: {
     type: "website",
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     siteName: "RARE India",
     title: "RARE Conscious Travel Awards — Self Nomination",
     description:
-      "A simple, branded nomination for Bridges exhibitors of The RARE Collection.",
+      "Open to all exhibitors at BRIDGES for conscious travel 2026. Sustainability Lighthouse and Lightkeeper awards.",
     images: [
       {
-        url: "/og-image.jpeg",
+        url: "/rare-logo.png",
         width: 512,
         height: 512,
-        alt: "RARE — Destinations & Experiences",
+        alt: "RARE",
       },
     ],
   },
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     card: "summary",
     title: "RARE Conscious Travel Awards — Self Nomination",
     description:
-      "A simple, branded nomination for Bridges exhibitors of The RARE Collection.",
-    images: ["/og-image.jpeg"],
+      "Open to all exhibitors at BRIDGES for conscious travel 2026. Sustainability Lighthouse and Lightkeeper awards.",
+    images: ["/rare-logo.png"],
   },
 };
 

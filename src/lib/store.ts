@@ -37,41 +37,106 @@ export async function saveNomination(
 ): Promise<{ id: string; storage: "supabase" | "local" }> {
   if (isSupabaseConfigured()) {
     const supabase = getSupabase()!;
-    const { data, error } = await supabase
-      .from("nominations")
-      .insert({
-        hotel_name_text: payload.hotel_name,
-        hotel_not_listed: payload.hotel_not_listed,
-        contact_name: payload.contact_name,
-        contact_email: payload.contact_email,
-        contact_phone: payload.contact_phone || null,
-        award_category: payload.award_category,
-        nominee_name: payload.nominee_name || null,
-        nominee_role: payload.nominee_role || null,
-        signature_story: payload.signature_story || null,
-        sustainability_lead: payload.sustainability_lead || null,
-        evidence_url: payload.evidence_url || null,
-        consent: payload.consent,
-        status: "submitted",
-        source: "bridges_exhibitors",
-      })
-      .select("id")
-      .single();
+    const baseRow = {
+      hotel_name_text: payload.hotel_name,
+      hotel_not_listed: payload.hotel_not_listed,
+      contact_name: payload.contact_name,
+      contact_email: payload.contact_email,
+      contact_phone: payload.contact_phone || null,
+      award_category: payload.award_category,
+      nominee_name: payload.nominee_name || null,
+      nominee_role: payload.nominee_role || null,
+      signature_story: payload.signature_story || null,
+      sustainability_lead: payload.sustainability_lead || null,
+      evidence_url: payload.evidence_url || null,
+      consent: payload.consent,
+      status: "submitted",
+      source: "bridges_exhibitors",
+    };
+
+    const extendedRow = {
+      ...baseRow,
+      lightkeeper_why: payload.lightkeeper_why || null,
+      lightkeeper_accomplishments: payload.lightkeeper_accomplishments || null,
+      lightkeeper_achievements: payload.lightkeeper_achievements || null,
+      lightkeeper_pushing_for: payload.lightkeeper_pushing_for || null,
+      // Store file metadata only in DB if column exists; full base64 can be large
+      supporting_files: (payload.supporting_files || []).map((f) => ({
+        name: f.name,
+        mime: f.mime,
+        size: f.size,
+        kind: f.kind,
+        data_base64: f.data_base64,
+      })),
+    };
+
+    let data: { id: string } | null = null;
+    let error: { message: string } | null = null;
+
+    {
+      const res = await supabase
+        .from("nominations")
+        .insert(extendedRow)
+        .select("id")
+        .single();
+      data = res.data;
+      error = res.error;
+    }
+
+    // Schema not migrated yet — pack new fields into signature_story + admin_notes-safe base insert
+    if (error && /column|schema cache|could not find/i.test(error.message)) {
+      const packed = [
+        payload.signature_story || "",
+        payload.lightkeeper_why
+          ? `\n\n[Lightkeeper — Why chosen]\n${payload.lightkeeper_why}`
+          : "",
+        payload.lightkeeper_accomplishments
+          ? `\n\n[Lightkeeper — Accomplishments]\n${payload.lightkeeper_accomplishments}`
+          : "",
+        payload.lightkeeper_achievements
+          ? `\n\n[Lightkeeper — Achievements]\n${payload.lightkeeper_achievements}`
+          : "",
+        payload.lightkeeper_pushing_for
+          ? `\n\n[Lightkeeper — Pushing for]\n${payload.lightkeeper_pushing_for}`
+          : "",
+        payload.supporting_files?.length
+          ? `\n\n[Supporting files: ${payload.supporting_files
+              .map((f) => f.name)
+              .join(", ")}]`
+          : "",
+      ]
+        .join("")
+        .trim();
+
+      const res = await supabase
+        .from("nominations")
+        .insert({
+          ...baseRow,
+          signature_story: packed || null,
+        })
+        .select("id")
+        .single();
+      data = res.data;
+      error = res.error;
+    }
 
     if (error) throw new Error(error.message);
+    if (!data) throw new Error("No nomination id returned");
 
-    const answers = payload.answers.map((a) => ({
-      nomination_id: data.id,
-      touchstone_key: a.touchstone_key,
-      not_applicable: a.not_applicable,
-      answer_text: a.answer_text || null,
-    }));
+    if (payload.answers?.length) {
+      const answers = payload.answers.map((a) => ({
+        nomination_id: data.id,
+        touchstone_key: a.touchstone_key,
+        not_applicable: a.not_applicable,
+        answer_text: a.answer_text || null,
+      }));
 
-    const { error: ansError } = await supabase
-      .from("nomination_answers")
-      .insert(answers);
+      const { error: ansError } = await supabase
+        .from("nomination_answers")
+        .insert(answers);
 
-    if (ansError) throw new Error(ansError.message);
+      if (ansError) throw new Error(ansError.message);
+    }
 
     return { id: data.id, storage: "supabase" };
   }
@@ -119,9 +184,14 @@ export async function listNominations(): Promise<NominationRecord[]> {
       award_category: n.award_category,
       nominee_name: n.nominee_name || undefined,
       nominee_role: n.nominee_role || undefined,
+      lightkeeper_why: n.lightkeeper_why || undefined,
+      lightkeeper_accomplishments: n.lightkeeper_accomplishments || undefined,
+      lightkeeper_achievements: n.lightkeeper_achievements || undefined,
+      lightkeeper_pushing_for: n.lightkeeper_pushing_for || undefined,
       signature_story: n.signature_story || undefined,
       sustainability_lead: n.sustainability_lead || undefined,
       evidence_url: n.evidence_url || undefined,
+      supporting_files: n.supporting_files || [],
       consent: n.consent,
       answers: (answers || [])
         .filter((a) => a.nomination_id === n.id)

@@ -122,15 +122,17 @@ export const AWARD_CATEGORIES = [
     id: "sustainability_lighthouse",
     title: "Sustainability Lighthouse",
     description:
-      "For a Bridges hotel whose sustainability practices, as a whole, set a clear standard — the property that lights the way for place-sensitive, responsible hospitality.",
+      "Where sustainability practices, as a whole, set a clear standard — the property that lights the way for planet sensitive and community inclusive hospitality.",
     needsNominee: false,
+    formStyle: "lighthouse" as const,
   },
   {
     id: "sustainability_lightkeeper",
     title: "Sustainability Lightkeeper",
     description:
-      "For a named individual within a Bridges hotel who is actively pushing forward the property’s sustainability practices with consistency, care, and measurable effort.",
+      "For an individual who is pushing forward sustainability — tell us why they are chosen, what they have accomplished, and what they are driving next.",
     needsNominee: true,
+    formStyle: "lightkeeper" as const,
   },
 ] as const;
 

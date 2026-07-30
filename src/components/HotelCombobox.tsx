@@ -90,7 +90,7 @@ export function HotelCombobox({
           }}
         />
         <span>
-          My Bridges hotel isn&apos;t listed yet — I&apos;ll type the full name
+          My hotel isn&apos;t listed yet — I&apos;ll type the full name
         </span>
       </label>
       {error && <p className="rare-error">{error}</p>}

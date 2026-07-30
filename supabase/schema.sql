@@ -17,13 +17,26 @@ create table if not exists nominations (
   award_category text not null,
   nominee_name text,
   nominee_role text,
+  lightkeeper_why text,
+  lightkeeper_accomplishments text,
+  lightkeeper_achievements text,
+  lightkeeper_pushing_for text,
   signature_story text,
   sustainability_lead text,
   evidence_url text,
+  supporting_files jsonb not null default '[]'::jsonb,
   consent boolean not null default false,
   source text not null default 'bridges_exhibitors',
   admin_notes text
 );
+
+-- If the table already exists, run these alters once:
+-- alter table nominations add column if not exists lightkeeper_why text;
+-- alter table nominations add column if not exists lightkeeper_accomplishments text;
+-- alter table nominations add column if not exists lightkeeper_achievements text;
+-- alter table nominations add column if not exists lightkeeper_pushing_for text;
+-- alter table nominations add column if not exists supporting_files jsonb not null default '[]'::jsonb;
+
 
 create table if not exists nomination_answers (
   id uuid primary key default gen_random_uuid(),

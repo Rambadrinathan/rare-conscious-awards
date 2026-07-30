@@ -5,10 +5,10 @@ export function SiteFooter() {
         <p>
           For further details, write to{" "}
           <a
-            href="mailto:bridges@rareindia.com"
+            href="mailto:shobhanaj@rareindia.com"
             className="font-semibold text-rare-green-deep underline-offset-2 hover:underline"
           >
-            bridges@rareindia.com
+            shobhanaj@rareindia.com
           </a>
         </p>
         <div className="flex w-full flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:text-left">

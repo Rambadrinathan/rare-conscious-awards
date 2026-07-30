@@ -11,26 +11,13 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
       >
         <Link href="/" className="flex items-center gap-3 no-underline">
           <Image
-            src="/rare-logo.jpeg"
+            src="/rare-logo.png"
             alt="RARE"
-            width={compact ? 48 : 56}
-            height={compact ? 48 : 56}
-            className="rounded-full object-cover shadow-sm"
+            width={compact ? 56 : 72}
+            height={compact ? 40 : 52}
+            className="h-auto w-auto max-h-12 object-contain sm:max-h-14"
             priority
           />
-          <div className="leading-tight">
-            <div
-              className="text-lg font-extrabold tracking-[0.22em] text-rare-green"
-              style={{ letterSpacing: "0.22em" }}
-            >
-              RARE
-            </div>
-            {!compact && (
-              <div className="text-xs text-rare-muted">
-                Creating Shared Value
-              </div>
-            )}
-          </div>
         </Link>
         <div className="text-right text-xs uppercase tracking-[0.14em] text-rare-muted">
           Conscious Travel Awards

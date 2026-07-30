@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server";
 import { nominationSchema } from "@/lib/validation";
 import { saveNomination } from "@/lib/store";
-import type { NominationPayload } from "@/lib/types";
+import type { NominationPayload, SupportingFile } from "@/lib/types";
 import type { AwardCategoryId } from "@/lib/touchstones";
+
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Bot trap
     if (body.website_honeypot) {
       return NextResponse.json({ id: "ok" });
     }
@@ -21,6 +22,20 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
+    const supporting_files = (data.supporting_files || []) as SupportingFile[];
+
+    // Soft size guard for serverless body limits
+    const totalBytes = supporting_files.reduce((s, f) => s + f.size, 0);
+    if (totalBytes > 4_000_000) {
+      return NextResponse.json(
+        {
+          error:
+            "Supporting files are too large in total (max ~4 MB). Please compress images or upload fewer files.",
+        },
+        { status: 400 }
+      );
+    }
+
     const payload: NominationPayload = {
       hotel_name: data.hotel_name,
       hotel_not_listed: data.hotel_not_listed,
@@ -30,11 +45,16 @@ export async function POST(request: Request) {
       award_category: data.award_category as AwardCategoryId,
       nominee_name: data.nominee_name || undefined,
       nominee_role: data.nominee_role || undefined,
+      lightkeeper_why: data.lightkeeper_why || undefined,
+      lightkeeper_accomplishments: data.lightkeeper_accomplishments || undefined,
+      lightkeeper_achievements: data.lightkeeper_achievements || undefined,
+      lightkeeper_pushing_for: data.lightkeeper_pushing_for || undefined,
       signature_story: data.signature_story || undefined,
       sustainability_lead: data.sustainability_lead || undefined,
       evidence_url: data.evidence_url || undefined,
+      supporting_files,
       consent: true,
-      answers: data.answers.map((a) => ({
+      answers: (data.answers || []).map((a) => ({
         touchstone_key: a.touchstone_key,
         not_applicable: a.not_applicable,
         answer_text: a.answer_text,

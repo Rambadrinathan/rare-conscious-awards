@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { PageShell } from "@/components/PageShell";
 
 type Props = {
   searchParams: Promise<{ ref?: string }>;
@@ -11,8 +10,7 @@ export default async function ThanksPage({ searchParams }: Props) {
   const ref = params.ref;
 
   return (
-    <div className="paper-grain flex min-h-screen flex-col">
-      <SiteHeader />
+    <PageShell>
       <main className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center px-5 pb-16">
         <div className="rare-card p-8 text-center sm:p-12">
           <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-rare-green/15 text-2xl text-rare-green">
@@ -41,7 +39,6 @@ export default async function ThanksPage({ searchParams }: Props) {
           </div>
         </div>
       </main>
-      <SiteFooter />
-    </div>
+    </PageShell>
   );
 }

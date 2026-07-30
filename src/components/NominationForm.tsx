@@ -8,9 +8,10 @@ import {
   TOUCHSTONES,
   type AwardCategoryId,
 } from "@/lib/touchstones";
-import type { HotelSeed } from "@/lib/types";
+import type { HotelSeed, SupportingFile } from "@/lib/types";
 import { HotelCombobox } from "./HotelCombobox";
 import { TouchstoneIcon } from "./TouchstoneIcon";
+import { EvidenceUploader } from "./EvidenceUploader";
 
 type AnswerState = {
   touchstone_key: string;
@@ -42,14 +43,21 @@ export function NominationForm() {
     useState<AwardCategoryId>("sustainability_lighthouse");
   const [nomineeName, setNomineeName] = useState("");
   const [nomineeRole, setNomineeRole] = useState("");
+  const [lightkeeperWhy, setLightkeeperWhy] = useState("");
+  const [lightkeeperAccomplishments, setLightkeeperAccomplishments] =
+    useState("");
+  const [lightkeeperAchievements, setLightkeeperAchievements] = useState("");
+  const [lightkeeperPushingFor, setLightkeeperPushingFor] = useState("");
   const [answers, setAnswers] = useState<AnswerState[]>(initialAnswers);
   const [signatureStory, setSignatureStory] = useState("");
   const [sustainabilityLead, setSustainabilityLead] = useState("");
   const [evidenceUrl, setEvidenceUrl] = useState("");
+  const [supportingFiles, setSupportingFiles] = useState<SupportingFile[]>([]);
   const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState("");
 
   const award = AWARD_CATEGORIES.find((a) => a.id === awardCategory)!;
+  const isLightkeeper = award.formStyle === "lightkeeper";
 
   const completedCount = useMemo(() => {
     return answers.filter((a) => {
@@ -67,11 +75,13 @@ export function NominationForm() {
 
   function validateIdentity(): boolean {
     const errs: Record<string, string> = {};
-    if (hotelName.trim().length < 2) errs.hotel = "Please select or enter your hotel";
-    if (contactName.trim().length < 2) errs.contact_name = "Your name is required";
+    if (hotelName.trim().length < 2)
+      errs.hotel = "Please select or enter your hotel";
+    if (contactName.trim().length < 2)
+      errs.contact_name = "Your name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail))
       errs.contact_email = "A valid email is required";
-    if (award.needsNominee && nomineeName.trim().length < 2)
+    if (isLightkeeper && nomineeName.trim().length < 2)
       errs.nominee_name = "Nominee name is required for this award";
     setFieldErrors(errs);
     return Object.keys(errs).length === 0;
@@ -96,12 +106,38 @@ export function NominationForm() {
     return true;
   }
 
+  function validateLightkeeper(): boolean {
+    const errs: Record<string, string> = {};
+    if (lightkeeperWhy.trim().length < 20)
+      errs.lightkeeper_why =
+        "Please explain why this person is chosen (a few sentences).";
+    if (lightkeeperAccomplishments.trim().length < 20)
+      errs.lightkeeper_accomplishments =
+        "Please describe what they have accomplished.";
+    if (lightkeeperAchievements.trim().length < 20)
+      errs.lightkeeper_achievements = "Please share their key achievements.";
+    if (lightkeeperPushingFor.trim().length < 20)
+      errs.lightkeeper_pushing_for =
+        "Please describe what they are pushing for.";
+    setFieldErrors(errs);
+    if (Object.keys(errs).length) {
+      setFormError("Please complete all Lightkeeper narrative fields.");
+      return false;
+    }
+    setFormError(null);
+    return true;
+  }
+
   async function handleSubmit() {
     if (!consent) {
       setFormError("Please confirm that this submission is accurate.");
       return;
     }
-    if (!validateTouchstones()) return;
+    if (isLightkeeper) {
+      if (!validateLightkeeper()) return;
+    } else if (!validateTouchstones()) {
+      return;
+    }
 
     setSubmitting(true);
     setFormError(null);
@@ -119,12 +155,23 @@ export function NominationForm() {
           award_category: awardCategory,
           nominee_name: nomineeName.trim() || undefined,
           nominee_role: nomineeRole.trim() || undefined,
+          lightkeeper_why: isLightkeeper ? lightkeeperWhy.trim() : undefined,
+          lightkeeper_accomplishments: isLightkeeper
+            ? lightkeeperAccomplishments.trim()
+            : undefined,
+          lightkeeper_achievements: isLightkeeper
+            ? lightkeeperAchievements.trim()
+            : undefined,
+          lightkeeper_pushing_for: isLightkeeper
+            ? lightkeeperPushingFor.trim()
+            : undefined,
           signature_story: signatureStory.trim() || undefined,
           sustainability_lead: sustainabilityLead.trim() || undefined,
           evidence_url: evidenceUrl.trim() || undefined,
+          supporting_files: supportingFiles,
           consent: true,
           website_honeypot: honeypot,
-          answers,
+          answers: isLightkeeper ? [] : answers,
         }),
       });
 
@@ -142,36 +189,31 @@ export function NominationForm() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-5 pb-20">
-      {/* Progress */}
       <div className="mb-8 rare-card p-5">
         <div className="mb-3 flex items-center justify-between text-sm">
           <span className="font-semibold text-rare-ink">
             {step === 1 && "Step 1 · Your property"}
-            {step === 2 && "Step 2 · Your Pinwheel"}
-            {step === 3 && "Step 3 · Review & submit"}
+            {step === 2 &&
+              (isLightkeeper
+                ? "Step 2 · The Lightkeeper"
+                : "Step 2 · Your Pinwheel")}
+            {step === 3 && "Step 3 · Evidence & submit"}
           </span>
           <span className="text-rare-muted">
-            {step === 2
+            {step === 2 && !isLightkeeper
               ? `${completedCount} of ${TOUCHSTONES.length} touchstones`
               : `Step ${step} of 3`}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          {TOUCHSTONES.map((t, i) => {
-            const a = answers[i];
-            const done =
-              (a.not_applicable && t.allowNa) ||
-              a.answer_text.trim().length >= 20;
-            return (
-              <div
-                key={t.key}
-                className={`blade-dot ${done ? "done" : ""} ${
-                  step === 2 && !done ? "active" : ""
-                }`}
-                title={t.name}
-              />
-            );
-          })}
+          {[1, 2, 3].map((n) => (
+            <div
+              key={n}
+              className={`h-2 flex-1 rounded-full ${
+                step >= n ? "bg-rare-green" : "bg-rare-border"
+              }`}
+            />
+          ))}
         </div>
       </div>
 
@@ -182,10 +224,8 @@ export function NominationForm() {
               Your property
             </h2>
             <p className="rare-hint mt-2">
-              Open to Bridges participating hotels. Choose{" "}
-              <strong>Sustainability Lighthouse</strong> (property) or{" "}
-              <strong>Sustainability Lightkeeper</strong> (individual). About 12
-              minutes for the full form.
+              Select your Hotel name, add contact details, choose type of Award
+              (Lighthouse or LightKeeper).
             </p>
           </div>
 
@@ -251,7 +291,7 @@ export function NominationForm() {
           </div>
 
           <div>
-            <p className="rare-label">Award category</p>
+            <p className="rare-label">Type of Award</p>
             <div className="mt-2 space-y-3">
               {AWARD_CATEGORIES.map((cat) => (
                 <label
@@ -282,7 +322,7 @@ export function NominationForm() {
             </div>
           </div>
 
-          {award.needsNominee && (
+          {isLightkeeper && (
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label className="rare-label" htmlFor="nominee_name">
@@ -322,13 +362,13 @@ export function NominationForm() {
                 if (validateIdentity()) setStep(2);
               }}
             >
-              Continue to Pinwheel
+              {isLightkeeper ? "Continue to Lightkeeper story" : "Continue to Pinwheel"}
             </button>
           </div>
         </section>
       )}
 
-      {step === 2 && (
+      {step === 2 && !isLightkeeper && (
         <section className="space-y-5">
           <div className="rare-card p-6 sm:p-8">
             <h2 className="text-2xl font-extrabold text-rare-green-deep">
@@ -336,7 +376,7 @@ export function NominationForm() {
             </h2>
             <p className="rare-hint mt-2">
               Nine short prompts — one for each touchstone. A few sentences of{" "}
-              <em>real practice</em> is perfect. No jargon. No audit paperwork.
+              <em>real practice</em> is perfect.
             </p>
             <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider">
               <span className="rounded-full bg-rare-green/15 px-3 py-1 text-rare-green-deep">
@@ -360,7 +400,7 @@ export function NominationForm() {
                   <TouchstoneIcon
                     touchstoneKey={ts.key}
                     kind={ts.kind}
-                    className="h-12 w-12 shrink-0"
+                    className="h-14 w-14 shrink-0"
                   />
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -436,7 +476,123 @@ export function NominationForm() {
                 if (validateTouchstones()) setStep(3);
               }}
             >
-              Review submission
+              Continue to evidence
+            </button>
+          </div>
+        </section>
+      )}
+
+      {step === 2 && isLightkeeper && (
+        <section className="rare-card space-y-6 p-6 sm:p-8">
+          <div>
+            <h2 className="text-2xl font-extrabold text-rare-green-deep">
+              The Lightkeeper
+            </h2>
+            <p className="rare-hint mt-2">
+              This award is about the person — why they are chosen, what they
+              have accomplished, their achievements, and what they are pushing
+              for.
+            </p>
+            {nomineeName && (
+              <p className="mt-3 rounded-xl bg-rare-cream px-4 py-3 text-sm font-semibold text-rare-ink">
+                Nominating: {nomineeName}
+                {nomineeRole ? ` · ${nomineeRole}` : ""}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="rare-label" htmlFor="lk_why">
+              Why is this person chosen?
+            </label>
+            <textarea
+              id="lk_why"
+              className="rare-textarea"
+              value={lightkeeperWhy}
+              onChange={(e) => setLightkeeperWhy(e.target.value)}
+              rows={4}
+              placeholder="What makes them the Lightkeeper for your property?"
+            />
+            {fieldErrors.lightkeeper_why && (
+              <p className="rare-error">{fieldErrors.lightkeeper_why}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="rare-label" htmlFor="lk_acc">
+              What have they accomplished?
+            </label>
+            <textarea
+              id="lk_acc"
+              className="rare-textarea"
+              value={lightkeeperAccomplishments}
+              onChange={(e) => setLightkeeperAccomplishments(e.target.value)}
+              rows={4}
+              placeholder="Concrete work, programmes, changes they led…"
+            />
+            {fieldErrors.lightkeeper_accomplishments && (
+              <p className="rare-error">
+                {fieldErrors.lightkeeper_accomplishments}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="rare-label" htmlFor="lk_ach">
+              Key achievements
+            </label>
+            <textarea
+              id="lk_ach"
+              className="rare-textarea"
+              value={lightkeeperAchievements}
+              onChange={(e) => setLightkeeperAchievements(e.target.value)}
+              rows={4}
+              placeholder="Outcomes, recognition, measurable impact…"
+            />
+            {fieldErrors.lightkeeper_achievements && (
+              <p className="rare-error">{fieldErrors.lightkeeper_achievements}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="rare-label" htmlFor="lk_push">
+              What are they pushing for?
+            </label>
+            <textarea
+              id="lk_push"
+              className="rare-textarea"
+              value={lightkeeperPushingFor}
+              onChange={(e) => setLightkeeperPushingFor(e.target.value)}
+              rows={4}
+              placeholder="The next horizon — practices, culture, community, planet…"
+            />
+            {fieldErrors.lightkeeper_pushing_for && (
+              <p className="rare-error">{fieldErrors.lightkeeper_pushing_for}</p>
+            )}
+          </div>
+
+          {formError && (
+            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+              {formError}
+            </div>
+          )}
+
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+            <button
+              type="button"
+              className="rare-btn rare-btn-ghost"
+              onClick={() => setStep(1)}
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              className="rare-btn rare-btn-primary"
+              onClick={() => {
+                if (validateLightkeeper()) setStep(3);
+              }}
+            >
+              Continue to evidence
             </button>
           </div>
         </section>
@@ -446,10 +602,10 @@ export function NominationForm() {
         <section className="rare-card space-y-6 p-6 sm:p-8">
           <div>
             <h2 className="text-2xl font-extrabold text-rare-green-deep">
-              Review & submit
+              Evidence & submit
             </h2>
             <p className="rare-hint mt-2">
-              A last optional note for the jury, then confirm and send.
+              Add supporting images and documents, then confirm and send.
             </p>
           </div>
 
@@ -459,17 +615,24 @@ export function NominationForm() {
             </p>
             <p className="mt-1 text-rare-muted">
               {award.title}
-              {award.needsNominee && nomineeName
+              {isLightkeeper && nomineeName
                 ? ` · ${nomineeName}${nomineeRole ? `, ${nomineeRole}` : ""}`
                 : ""}
             </p>
             <p className="mt-1 text-rare-muted">
               {contactName} · {contactEmail}
             </p>
-            <p className="mt-2 font-semibold text-rare-green-deep">
-              {completedCount} / {TOUCHSTONES.length} touchstones complete
-            </p>
+            {!isLightkeeper && (
+              <p className="mt-2 font-semibold text-rare-green-deep">
+                {completedCount} / {TOUCHSTONES.length} touchstones complete
+              </p>
+            )}
           </div>
+
+          <EvidenceUploader
+            files={supportingFiles}
+            onChange={setSupportingFiles}
+          />
 
           <div>
             <label className="rare-label" htmlFor="signature">
@@ -479,7 +642,7 @@ export function NominationForm() {
               </span>
             </label>
             <p className="rare-hint mb-2">
-              If the jury remembers one thing about you, what should it be?
+              If the jury remembers one thing, what should it be?
             </p>
             <textarea
               id="signature"
@@ -509,7 +672,7 @@ export function NominationForm() {
             </div>
             <div>
               <label className="rare-label" htmlFor="evidence">
-                Evidence link{" "}
+                Additional link{" "}
                 <span className="font-normal normal-case tracking-normal">
                   (optional)
                 </span>
@@ -537,7 +700,6 @@ export function NominationForm() {
             </span>
           </label>
 
-          {/* Honeypot */}
           <div className="honeypot" aria-hidden="true">
             <label htmlFor="website">Website</label>
             <input
@@ -562,7 +724,7 @@ export function NominationForm() {
               onClick={() => setStep(2)}
               disabled={submitting}
             >
-              Back to answers
+              Back
             </button>
             <button
               type="button"
