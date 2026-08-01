@@ -1,6 +1,6 @@
 # CLAUDE HANDOVER — RARE Conscious Travel Awards
 
-**Date:** 2026-07-30  
+**Date:** 2026-08-01 (was 2026-07-30)  
 **Owner context:** Rambadrinathan / RARE India · Bridges · Conscious Travel Awards  
 **Purpose:** Self-nomination portal for exhibitors at BRIDGES for conscious travel 2026  
 
@@ -135,38 +135,35 @@ Display via `awardTitle()` in `touchstones.ts`.
 
 ---
 
-## 7. ⚠️ CRITICAL: Where uploads go today
+## 7. Where uploads go (RESOLVED 2026-08-01 — verified in production)
 
-**This was asked explicitly and is incomplete for production.**
+Files are stored as **base64 inside Postgres jsonb**, on the `rare-brain`
+Supabase project (`bariotlsknjrdrathtbf`). Verified end-to-end against the live
+site: a 6.8 MB photo stored at 865 KB with the real bytes present.
 
-Current behaviour:
+Path:
 
-1. Browser reads files → **base64** in JSON payload as `supporting_files[]`.  
-2. API accepts them (total soft limit ~4 MB).  
-3. `store.ts` tries to insert into Supabase column `supporting_files` (jsonb).  
-4. **If that column does not exist** (schema not migrated), store **falls back** to packing only **file names** (not bytes) into `signature_story` text.  
-5. Without Supabase: full base64 lands in local `nominations.json` (ephemeral on Vercel).
+1. Browser **compresses images** (max 1600px edge, JPEG q82) before they count.
+2. Payload posts as JSON: whole-nomination `supporting_files[]` plus optional
+   per-touchstone `answers[].supporting_files[]` and `answers[].evidence_url`.
+3. API guard rejects >4 MB total (counts per-touchstone bytes too).
+4. `store.ts` writes `nominations.supporting_files` and
+   `nomination_answers.supporting_files` / `evidence_url`.
+5. If a column is missing, the insert falls back to the base row and logs a
+   **loud warning** — it never silently claims success.
 
-**Not implemented:**
-- Supabase Storage bucket  
-- Google Drive upload  
-- Email attachments to Shobhana  
-- Public/private download URLs for jury  
+**Migration already run** on `rare-brain` (all 7 columns confirmed present).
+SQL lives at the bottom of `supabase/schema.sql` and is safe to re-run.
 
-**Recommended next work:**
-1. Run SQL in Supabase (from `supabase/schema.sql` comments):
+**Upload budget:** 2.6 MB total per nomination, enforced client-side with a
+visible warning + live meter, and re-checked server-side. Images auto-compress;
+documents cap at 1 MB each and must be compressed by hand or shared as a link.
 
-```sql
-alter table nominations add column if not exists lightkeeper_why text;
-alter table nominations add column if not exists lightkeeper_accomplishments text;
-alter table nominations add column if not exists lightkeeper_achievements text;
-alter table nominations add column if not exists lightkeeper_pushing_for text;
-alter table nominations add column if not exists supporting_files jsonb not null default '[]'::jsonb;
-```
-
-2. Better: create private Storage bucket `nomination-evidence`, upload files, store only paths/URLs on the row.  
-3. Admin UI to list/download evidence.  
-4. Optional notify `shobhanaj@rareindia.com`.
+**Still not implemented (fine for now, revisit if files outgrow the budget):**
+- Supabase Storage bucket — note this would NOT be a separate database, it is a
+  file bucket inside the same `rare-brain` project.
+- Google Drive upload / email attachments to Shobhana.
+- Admin UI to list and download evidence (admin still shows legacy fields).
 
 ---
 
@@ -214,13 +211,14 @@ Assets used:
 
 ## 11. Known gaps / backlog
 
-1. **Proper file storage** (Storage bucket) — highest priority after handover  
-2. **DB migration** for lightkeeper + supporting_files columns (run in Supabase SQL editor)  
-3. **Admin** should show lightkeeper narratives + file list/download (partially legacy UI)  
-4. **CSV export** may not include new lightkeeper / file columns fully  
-5. **Three vote awards** — separate form when copy arrives  
-6. Hotel list may change (add/remove Bridges exhibitors)  
-7. Base64-in-JSON is fragile for large uploads; enforce smaller limits or Storage  
+1. ~~Proper file storage~~ — **done** for current scale (compress + jsonb, §7)
+2. ~~DB migration~~ — **done** 2026-08-01, all 7 columns verified on `rare-brain`
+3. **Admin** should show lightkeeper narratives + per-touchstone evidence with
+   download links — still legacy UI, highest remaining priority
+4. **CSV export** does not include lightkeeper or file columns
+5. **Three vote awards** — separate form when copy arrives
+6. Hotel list may change (add/remove Bridges exhibitors)
+7. Storage bucket only becomes necessary if the 2.6 MB budget starts binding
 
 ---
 
@@ -263,6 +261,9 @@ npm run dev
 ## 14. Recent commits (context)
 
 ```
+v2.1  Persist per-touchstone evidence through the API route.
+v2    Apply Pinwheel feedback: correct icons, copy edits, per-touchstone evidence.
+48382fe Add Claude handover for Conscious Travel Awards portal.
 cb7e076 Point OG image to new RARE logo PNG.
 a888302 Update awards site from 30 June feedback.
 2cb94ca Add bridges@rareindia.com contact in site footer.  # superseded by shobhanaj
@@ -274,9 +275,18 @@ a888302 Update awards site from 30 June feedback.
 
 ## 15. First task if continuing from here
 
-**User last asked:** where do uploaded images/documents go?  
-**Answer given:** base64 on nomination record / Supabase jsonb if column exists; **not** a file host.  
+**Last session (2026-08-01):** applied the 12 Pinwheel feedback items, fixed the
+icon set, added per-touchstone evidence + image auto-compression, ran the DB
+migration, and shipped to production (tags `v2-approved-pinwheel-feedback`,
+`v2.1-approved-evidence-fix`).
 
-**Suggested implement next:** Supabase Storage + schema ALTERs + admin download links.
+**Suggested implement next:** admin UI showing lightkeeper narratives and
+per-touchstone evidence with download links, plus CSV export of the new columns.
+
+**Trap worth remembering:** evidence has now been dropped twice by intermediate
+mapping layers — once in `store.ts`, once in `api/nominate/route.ts`. Both
+re-mapped answers field-by-field. If you add another answer field, grep for
+`touchstone_key` across `src/` and update EVERY mapper, then prove it with a
+real submission and a SQL read-back. A green deploy means nothing here.
 
 When in doubt: read this file, then `src/lib/touchstones.ts` + `NominationForm.tsx` + `store.ts`.
