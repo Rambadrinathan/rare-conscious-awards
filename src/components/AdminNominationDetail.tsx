@@ -7,7 +7,7 @@ import {
   awardTitle,
   TOUCHSTONES,
 } from "@/lib/touchstones";
-import type { NominationRecord } from "@/lib/types";
+import type { NominationRecord, SupportingFile } from "@/lib/types";
 
 type Props = {
   nomination: NominationRecord;
@@ -48,6 +48,12 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
       };
     })
   );
+
+  // Older rows still carry the legacy "heros_journey_individual" id.
+  const isLightkeeper =
+    AWARD_CATEGORIES.find((a) => a.id === awardCategory)?.formStyle ===
+      "lightkeeper" ||
+    (awardCategory as string) === "heros_journey_individual";
 
   const headers = {
     "Content-Type": "application/json",
@@ -277,9 +283,56 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
         )}
       </div>
 
-      <div className="space-y-4">
+      {isLightkeeper && (
+        <div className="space-y-4 border-t border-rare-border pt-4">
+          <h3 className="font-bold text-rare-green-deep">
+            Lightkeeper narrative
+          </h3>
+          <ReadOnlyText
+            label="Why is this person chosen?"
+            value={nomination.lightkeeper_why}
+          />
+          <ReadOnlyText
+            label="What have they accomplished?"
+            value={nomination.lightkeeper_accomplishments}
+          />
+          <ReadOnlyText
+            label="Key achievements"
+            value={nomination.lightkeeper_achievements}
+          />
+          <ReadOnlyText
+            label="What are they pushing for?"
+            value={nomination.lightkeeper_pushing_for}
+          />
+        </div>
+      )}
+
+      <div className="border-t border-rare-border pt-4">
+        <h3 className="mb-2 font-bold text-rare-green-deep">
+          Evidence for the whole nomination
+        </h3>
+        {nomination.evidence_url && (
+          <p className="mb-2 text-sm">
+            <span className="rare-label">Link</span>{" "}
+            <a
+              className="text-rare-green-deep underline"
+              href={nomination.evidence_url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {nomination.evidence_url}
+            </a>
+          </p>
+        )}
+        <EvidenceFiles files={nomination.supporting_files} />
+      </div>
+
+      <div className={isLightkeeper ? "hidden" : "space-y-4"}>
         {TOUCHSTONES.map((t) => {
           const a = answers.find((x) => x.touchstone_key === t.key)!;
+          const stored = nomination.answers.find(
+            (x) => x.touchstone_key === t.key
+          );
           return (
             <div key={t.key} className="border-t border-rare-border pt-4">
               <h3 className="font-bold text-rare-green-deep">
@@ -316,15 +369,118 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
               ) : (
                 <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-rare-ink">
                   {a.not_applicable
-                    ? "Not applicable to destination"
+                    ? "Not relevant to destination"
                     : a.answer_text || "—"}
                 </p>
               )}
+
+              {stored?.evidence_url && (
+                <p className="mt-2 text-sm">
+                  <span className="rare-label">Link</span>{" "}
+                  <a
+                    className="text-rare-green-deep underline"
+                    href={stored.evidence_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {stored.evidence_url}
+                  </a>
+                </p>
+              )}
+              <EvidenceFiles files={stored?.supporting_files} compact />
             </div>
           );
         })}
       </div>
     </article>
+  );
+}
+
+function ReadOnlyText({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | null;
+}) {
+  return (
+    <div>
+      <label className="rare-label">{label}</label>
+      <p className="whitespace-pre-wrap text-sm leading-relaxed text-rare-ink">
+        {value || "—"}
+      </p>
+    </div>
+  );
+}
+
+/**
+ * Renders stored evidence. Files are base64 in the DB, so we rebuild a data:
+ * URL for preview and download — no network round-trip, no signed URLs.
+ */
+function EvidenceFiles({
+  files,
+  compact = false,
+}: {
+  files?: SupportingFile[];
+  compact?: boolean;
+}) {
+  const list = files || [];
+  if (!list.length) {
+    return compact ? null : (
+      <p className="text-sm text-rare-muted">No files attached.</p>
+    );
+  }
+
+  const images = list.filter((f) => f.kind === "image");
+  const docs = list.filter((f) => f.kind !== "image");
+
+  const href = (f: SupportingFile) =>
+    `data:${f.mime || "application/octet-stream"};base64,${f.data_base64}`;
+  const kb = (f: SupportingFile) => `${Math.round((f.size || 0) / 1000)} KB`;
+
+  return (
+    <div className={compact ? "mt-2 space-y-2" : "space-y-3"}>
+      {images.length > 0 && (
+        <div className="flex flex-wrap gap-3">
+          {images.map((f, i) => (
+            <a
+              key={`${f.name}-${i}`}
+              href={href(f)}
+              download={f.name}
+              title={`${f.name} · ${kb(f)}`}
+              className="block w-28 overflow-hidden rounded-lg border border-rare-border bg-rare-white"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={href(f)}
+                alt={f.name}
+                className="h-24 w-full object-cover"
+              />
+              <span className="block truncate px-2 py-1 text-[11px] text-rare-muted">
+                {f.name}
+              </span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {docs.length > 0 && (
+        <ul className="space-y-1">
+          {docs.map((f, i) => (
+            <li key={`${f.name}-${i}`}>
+              <a
+                href={href(f)}
+                download={f.name}
+                className="inline-flex items-center gap-2 text-sm text-rare-green-deep underline"
+              >
+                {f.name}
+                <span className="text-xs text-rare-muted">({kb(f)})</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

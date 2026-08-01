@@ -29,7 +29,13 @@ export async function GET(request: Request) {
     "sustainability_lead",
     "signature_story",
     "evidence_url",
-    ...TOUCHSTONES.map((t) => t.key),
+    "lightkeeper_why",
+    "lightkeeper_accomplishments",
+    "lightkeeper_achievements",
+    "lightkeeper_pushing_for",
+    "attachments",
+    // Per touchstone: the answer, then any evidence attached to it
+    ...TOUCHSTONES.flatMap((t) => [t.key, `${t.key}_evidence`]),
   ];
 
   const lines = [headers.join(",")];
@@ -39,6 +45,21 @@ export async function GET(request: Request) {
       n.answers.map((a) => [
         a.touchstone_key,
         a.not_applicable ? "[N/A]" : a.answer_text,
+      ])
+    );
+
+    // File bytes have no place in a spreadsheet — list names, sizes and links
+    // so the jury knows what exists and can find it in the admin UI.
+    const describe = (files?: { name: string; size: number }[], url?: string) =>
+      [
+        ...(files || []).map((f) => `${f.name} (${Math.round(f.size / 1000)} KB)`),
+        ...(url ? [url] : []),
+      ].join(" | ");
+
+    const evidenceMap = Object.fromEntries(
+      n.answers.map((a) => [
+        a.touchstone_key,
+        describe(a.supporting_files, a.evidence_url),
       ])
     );
     const cols = [
@@ -55,7 +76,15 @@ export async function GET(request: Request) {
       n.sustainability_lead || "",
       n.signature_story || "",
       n.evidence_url || "",
-      ...TOUCHSTONES.map((t) => answerMap[t.key] || ""),
+      n.lightkeeper_why || "",
+      n.lightkeeper_accomplishments || "",
+      n.lightkeeper_achievements || "",
+      n.lightkeeper_pushing_for || "",
+      describe(n.supporting_files),
+      ...TOUCHSTONES.flatMap((t) => [
+        answerMap[t.key] || "",
+        evidenceMap[t.key] || "",
+      ]),
     ].map((c) => csvEscape(String(c)));
     lines.push(cols.join(","));
   }
