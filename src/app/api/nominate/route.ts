@@ -24,8 +24,15 @@ export async function POST(request: Request) {
     const data = parsed.data;
     const supporting_files = (data.supporting_files || []) as SupportingFile[];
 
-    // Soft size guard for serverless body limits
-    const totalBytes = supporting_files.reduce((s, f) => s + f.size, 0);
+    // Soft size guard for serverless body limits. Must count per-touchstone
+    // evidence too, or nine upload slots can slip past the ceiling.
+    const answerBytes = (data.answers || []).reduce(
+      (sum, a) =>
+        sum + (a.supporting_files || []).reduce((s, f) => s + f.size, 0),
+      0
+    );
+    const totalBytes =
+      supporting_files.reduce((s, f) => s + f.size, 0) + answerBytes;
     if (totalBytes > 4_000_000) {
       return NextResponse.json(
         {
@@ -58,6 +65,8 @@ export async function POST(request: Request) {
         touchstone_key: a.touchstone_key,
         not_applicable: a.not_applicable,
         answer_text: a.answer_text,
+        supporting_files: (a.supporting_files || []) as SupportingFile[],
+        evidence_url: a.evidence_url || undefined,
       })),
     };
 
