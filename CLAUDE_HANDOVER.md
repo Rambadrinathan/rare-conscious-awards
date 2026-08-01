@@ -213,9 +213,15 @@ Assets used:
 
 1. ~~Proper file storage~~ — **done** for current scale (compress + jsonb, §7)
 2. ~~DB migration~~ — **done** 2026-08-01, all 7 columns verified on `rare-brain`
-3. **Admin** should show lightkeeper narratives + per-touchstone evidence with
-   download links — still legacy UI, highest remaining priority
-4. **CSV export** does not include lightkeeper or file columns
+3. ~~Admin lightkeeper narratives + evidence downloads~~ — **done** 2026-08-01
+4. ~~CSV export missing new columns~~ — **done**, 36 columns incl. per-touchstone
+   `<key>_evidence` (file names/sizes/links; bytes stay out of the sheet)
+4b. **Admin detail page weight** — evidence is inlined as base64 data: URLs, so a
+   nomination with attachments renders a ~8 MB page (measured). Fine for one
+   jury reviewer and ~80 exhibitors; if it gets sluggish, the fix is a
+   `/api/admin/file/[id]` route streaming bytes on demand, or Storage (§7).
+   `listNominations()` also selects every row's base64 to build the sidebar —
+   that is the first thing to make lazy if the list gets slow.
 5. **Three vote awards** — separate form when copy arrives
 6. Hotel list may change (add/remove Bridges exhibitors)
 7. Storage bucket only becomes necessary if the 2.6 MB budget starts binding
