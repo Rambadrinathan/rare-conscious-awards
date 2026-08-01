@@ -7,6 +7,7 @@ export type Touchstone = {
   kind: TouchstoneKind;
   definition: string;
   prompt: string;
+  /** Every touchstone may be marked not relevant — some hotels genuinely cannot act on all nine. */
   allowNa: boolean;
 };
 
@@ -21,7 +22,7 @@ export const TOUCHSTONES: Touchstone[] = [
       "How your hotel reduces energy use and relies on smarter, cleaner, more efficient systems.",
     prompt:
       "Describe one concrete way your property measures or reduces energy use — lighting, HVAC, renewables, staff habits, or anything real you practise.",
-    allowNa: false,
+    allowNa: true,
   },
   {
     key: "water",
@@ -32,7 +33,7 @@ export const TOUCHSTONES: Touchstone[] = [
       "How your hotel uses water responsibly, reduces waste, and respects the needs of the destination.",
     prompt:
       "Share your strongest water practice — metering, reuse, linen programmes, landscaping, guest communication, or local water stewardship.",
-    allowNa: false,
+    allowNa: true,
   },
   {
     key: "waste",
@@ -43,7 +44,7 @@ export const TOUCHSTONES: Touchstone[] = [
       "How your hotel reduces waste, handles it carefully, and prevents harm to people and the environment.",
     prompt:
       "What have you eliminated or improved on waste — single-use items, segregation, food waste, chemicals, or disposal channels?",
-    allowNa: false,
+    allowNa: true,
   },
   {
     key: "wellbeing",
@@ -54,7 +55,7 @@ export const TOUCHSTONES: Touchstone[] = [
       "How your hotel creates a safe, healthy, and respectful environment for staff and guests.",
     prompt:
       "How do you protect and care for people — safety systems, training, hygiene, wellbeing, or dignity at work?",
-    allowNa: false,
+    allowNa: true,
   },
   {
     key: "inclusivity",
@@ -65,7 +66,7 @@ export const TOUCHSTONES: Touchstone[] = [
       "How your hotel makes people feel respected, welcomed, and considered, regardless of who they are.",
     prompt:
       "How does your property practise fairness, accessibility, or non-discrimination for guests and/or staff?",
-    allowNa: false,
+    allowNa: true,
   },
   {
     key: "heritage",

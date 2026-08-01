@@ -37,7 +37,7 @@ export function HotelCombobox({
       <input
         id="hotel"
         className="rare-input"
-        placeholder="Start typing your Bridges hotel…"
+        placeholder="Type your hotel name"
         value={query}
         autoComplete="off"
         onChange={(e) => {

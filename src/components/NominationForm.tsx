@@ -11,12 +11,15 @@ import {
 import type { HotelSeed, SupportingFile } from "@/lib/types";
 import { HotelCombobox } from "./HotelCombobox";
 import { TouchstoneIcon } from "./TouchstoneIcon";
-import { EvidenceUploader } from "./EvidenceUploader";
+import { EvidenceUploader, TOTAL_UPLOAD_BUDGET } from "./EvidenceUploader";
 
 type AnswerState = {
   touchstone_key: string;
   not_applicable: boolean;
   answer_text: string;
+  /** Optional per-touchstone evidence — never required to submit. */
+  supporting_files: SupportingFile[];
+  evidence_url: string;
 };
 
 const hotelList = hotels as HotelSeed[];
@@ -25,6 +28,8 @@ const initialAnswers: AnswerState[] = TOUCHSTONES.map((t) => ({
   touchstone_key: t.key,
   not_applicable: false,
   answer_text: "",
+  supporting_files: [],
+  evidence_url: "",
 }));
 
 export function NominationForm() {
@@ -66,6 +71,18 @@ export function NominationForm() {
       return a.answer_text.trim().length >= 20;
     }).length;
   }, [answers]);
+
+  /** Bytes already claimed by attachments anywhere in the form. */
+  const usedBytes = useMemo(() => {
+    const inTouchstones = answers.reduce(
+      (sum, a) => sum + a.supporting_files.reduce((s, f) => s + f.size, 0),
+      0
+    );
+    const inEvidence = supportingFiles.reduce((s, f) => s + f.size, 0);
+    return inTouchstones + inEvidence;
+  }, [answers, supportingFiles]);
+
+  const remainingBytes = Math.max(0, TOTAL_UPLOAD_BUDGET - usedBytes);
 
   function updateAnswer(key: string, patch: Partial<AnswerState>) {
     setAnswers((prev) =>
@@ -171,7 +188,15 @@ export function NominationForm() {
           supporting_files: supportingFiles,
           consent: true,
           website_honeypot: honeypot,
-          answers: isLightkeeper ? [] : answers,
+          answers: isLightkeeper
+            ? []
+            : answers.map((a) => ({
+                touchstone_key: a.touchstone_key,
+                not_applicable: a.not_applicable,
+                answer_text: a.answer_text,
+                supporting_files: a.supporting_files,
+                evidence_url: a.evidence_url.trim() || undefined,
+              })),
         }),
       });
 
@@ -374,10 +399,6 @@ export function NominationForm() {
             <h2 className="text-2xl font-extrabold text-rare-green-deep">
               Your Pinwheel
             </h2>
-            <p className="rare-hint mt-2">
-              Nine short prompts — one for each touchstone. A few sentences of{" "}
-              <em>real practice</em> is perfect.
-            </p>
             <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider">
               <span className="rounded-full bg-rare-green/15 px-3 py-1 text-rare-green-deep">
                 Green · Cardinal (all hotels)
@@ -423,8 +444,7 @@ export function NominationForm() {
                   <p className="text-[0.95rem] leading-relaxed text-rare-ink/90">
                     {ts.prompt}
                   </p>
-                  {ts.allowNa && (
-                    <label className="flex cursor-pointer items-center gap-2 text-sm text-rare-muted">
+                  <label className="flex cursor-pointer items-center gap-2 text-sm text-rare-muted">
                       <input
                         type="checkbox"
                         className="accent-[var(--rare-gold)]"
@@ -436,9 +456,8 @@ export function NominationForm() {
                           })
                         }
                       />
-                      Not relevant to our destination
-                    </label>
-                  )}
+                    Not relevant to our destination
+                  </label>
                   {!a.not_applicable && (
                     <textarea
                       className="rare-textarea"
@@ -446,9 +465,69 @@ export function NominationForm() {
                       onChange={(e) =>
                         updateAnswer(ts.key, { answer_text: e.target.value })
                       }
-                      placeholder="2–5 sentences is perfect…"
+                      placeholder="Tell us about your practice…"
                       rows={4}
                     />
+                  )}
+
+                  {!a.not_applicable && (
+                    <details className="rounded-xl border border-rare-border/70 bg-rare-white/60">
+                      <summary className="cursor-pointer px-4 py-3 text-sm font-semibold text-rare-green-deep">
+                        Add supporting images, documents or a link
+                        <span className="ml-1 font-normal text-rare-muted">
+                          (optional)
+                        </span>
+                        {(a.supporting_files.length > 0 ||
+                          a.evidence_url.trim()) && (
+                          <span className="ml-2 rounded-full bg-rare-green/15 px-2 py-0.5 text-xs text-rare-green-deep">
+                            {a.supporting_files.length +
+                              (a.evidence_url.trim() ? 1 : 0)}{" "}
+                            attached
+                          </span>
+                        )}
+                      </summary>
+                      <div className="space-y-4 border-t border-rare-border/70 p-4">
+                        <EvidenceUploader
+                          compact
+                          maxImages={3}
+                          maxDocs={2}
+                          budgetBytes={remainingBytes}
+                          files={a.supporting_files}
+                          onChange={(next) =>
+                            updateAnswer(ts.key, { supporting_files: next })
+                          }
+                        />
+                        <div>
+                          <label
+                            className="rare-label"
+                            htmlFor={`link-${ts.key}`}
+                          >
+                            Link
+                          </label>
+                          <input
+                            id={`link-${ts.key}`}
+                            className="rare-input"
+                            value={a.evidence_url}
+                            onChange={(e) =>
+                              updateAnswer(ts.key, {
+                                evidence_url: e.target.value,
+                              })
+                            }
+                            placeholder="https://…"
+                          />
+                        </div>
+                        <p className="rare-hint">
+                          Photos are resized automatically. All attachments
+                          across this nomination share a{" "}
+                          {Math.round(
+                            TOTAL_UPLOAD_BUDGET / 1000
+                          ).toLocaleString()}{" "}
+                          KB total limit —{" "}
+                          {Math.round(remainingBytes / 1000).toLocaleString()}{" "}
+                          KB left.
+                        </p>
+                      </div>
+                    </details>
                   )}
                 </div>
               </article>
@@ -629,10 +708,55 @@ export function NominationForm() {
             )}
           </div>
 
+          <div className="rounded-xl border border-rare-gold/50 bg-rare-gold/10 px-4 py-3 text-sm leading-relaxed text-rare-ink">
+            <p className="font-semibold">
+              Please keep all attachments under{" "}
+              {Math.round(TOTAL_UPLOAD_BUDGET / 1000).toLocaleString()} KB
+              (~2.6 MB) in total
+            </p>
+            <p className="mt-1 text-rare-ink/80">
+              This is the combined limit for everything you attach — here and
+              against individual touchstones. Photos are resized automatically,
+              so add them freely. Large PDFs must be compressed before
+              uploading, or shared using a link instead.
+            </p>
+          </div>
+
           <EvidenceUploader
             files={supportingFiles}
             onChange={setSupportingFiles}
+            budgetBytes={remainingBytes}
           />
+
+          {usedBytes > 0 && (
+            <div>
+              <div className="mb-1 flex justify-between text-xs font-semibold text-rare-muted">
+                <span>
+                  {Math.round(usedBytes / 1000).toLocaleString()} KB of{" "}
+                  {Math.round(TOTAL_UPLOAD_BUDGET / 1000).toLocaleString()} KB
+                  used
+                </span>
+                <span>
+                  {Math.round(remainingBytes / 1000).toLocaleString()} KB left
+                </span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-rare-border">
+                <div
+                  className={`h-full rounded-full transition-all ${
+                    usedBytes / TOTAL_UPLOAD_BUDGET > 0.85
+                      ? "bg-rare-gold"
+                      : "bg-rare-green"
+                  }`}
+                  style={{
+                    width: `${Math.min(
+                      100,
+                      (usedBytes / TOTAL_UPLOAD_BUDGET) * 100
+                    )}%`,
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           <div>
             <label className="rare-label" htmlFor="signature">

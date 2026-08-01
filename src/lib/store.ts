@@ -124,16 +124,36 @@ export async function saveNomination(
     if (!data) throw new Error("No nomination id returned");
 
     if (payload.answers?.length) {
-      const answers = payload.answers.map((a) => ({
+      const base = payload.answers.map((a) => ({
         nomination_id: data.id,
         touchstone_key: a.touchstone_key,
         not_applicable: a.not_applicable,
         answer_text: a.answer_text || null,
       }));
 
-      const { error: ansError } = await supabase
-        .from("nomination_answers")
-        .insert(answers);
+      // Per-touchstone evidence lives in columns added after the first release.
+      const withEvidence = payload.answers.map((a, i) => ({
+        ...base[i],
+        supporting_files: a.supporting_files || [],
+        evidence_url: a.evidence_url || null,
+      }));
+
+      let ansError: { message: string } | null = null;
+      const res = await supabase.from("nomination_answers").insert(withEvidence);
+      ansError = res.error;
+
+      if (ansError && /column|schema cache|could not find/i.test(ansError.message)) {
+        // Schema not migrated yet — retry without the new columns so the
+        // nomination is never lost, but surface that evidence was dropped.
+        const retry = await supabase.from("nomination_answers").insert(base);
+        ansError = retry.error;
+        if (!ansError) {
+          console.warn(
+            "[store] nomination_answers is missing supporting_files/evidence_url; " +
+              "per-touchstone evidence was NOT saved. Run the ALTERs in supabase/schema.sql."
+          );
+        }
+      }
 
       if (ansError) throw new Error(ansError.message);
     }
@@ -199,6 +219,8 @@ export async function listNominations(): Promise<NominationRecord[]> {
           touchstone_key: a.touchstone_key,
           not_applicable: a.not_applicable,
           answer_text: a.answer_text || "",
+          supporting_files: a.supporting_files || [],
+          evidence_url: a.evidence_url || undefined,
         })),
     }));
   }

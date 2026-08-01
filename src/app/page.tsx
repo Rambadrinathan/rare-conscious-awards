@@ -18,9 +18,6 @@ export default function HomePage() {
                 priority
               />
             </div>
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-rare-gold">
-              Bridges · Conscious Travel 2026
-            </p>
             <h1 className="text-3xl font-extrabold leading-tight text-rare-green-deep sm:text-4xl">
               RARE Conscious Travel Awards
             </h1>

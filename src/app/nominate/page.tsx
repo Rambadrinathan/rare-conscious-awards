@@ -14,8 +14,9 @@ export default function NominatePage() {
             Self nomination
           </h1>
           <p className="mt-2 text-rare-muted">
-            Lighthouse for hotels &amp; experiences · Lightkeeper for
-            individuals
+            Sustainability Lighthouse for Hotels &amp; Experiences
+            <br />
+            Sustainability Lightkeeper for Individuals
           </p>
         </div>
         <NominationForm />

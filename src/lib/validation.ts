@@ -44,6 +44,13 @@ export const nominationSchema = z
           touchstone_key: z.enum(touchstoneKeys),
           not_applicable: z.boolean(),
           answer_text: z.string(),
+          // Optional per-touchstone evidence
+          supporting_files: z.array(supportingFileSchema).max(5).optional(),
+          evidence_url: z
+            .string()
+            .url("Please enter a full URL, or leave blank")
+            .optional()
+            .or(z.literal("")),
         })
       )
       .default([]),

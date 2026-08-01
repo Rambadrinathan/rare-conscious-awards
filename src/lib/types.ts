@@ -10,6 +10,9 @@ export type TouchstoneAnswerInput = {
   touchstone_key: string;
   not_applicable: boolean;
   answer_text: string;
+  /** Optional per-touchstone evidence — never required to submit. */
+  supporting_files?: SupportingFile[];
+  evidence_url?: string;
 };
 
 export type SupportingFile = {

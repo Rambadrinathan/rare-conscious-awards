@@ -61,3 +61,19 @@ alter table nomination_answers enable row level security;
 -- Admin read via authenticated role (optional):
 -- create policy "auth_read_nominations" on nominations for select to authenticated using (true);
 -- create policy "auth_read_answers" on nomination_answers for select to authenticated using (true);
+
+-- ---------------------------------------------------------------------------
+-- Migration — run in the Supabase SQL editor against the live project.
+-- Until these run, the app degrades gracefully but DROPS the new evidence.
+-- ---------------------------------------------------------------------------
+
+-- Lightkeeper narrative + whole-nomination evidence
+alter table nominations add column if not exists lightkeeper_why text;
+alter table nominations add column if not exists lightkeeper_accomplishments text;
+alter table nominations add column if not exists lightkeeper_achievements text;
+alter table nominations add column if not exists lightkeeper_pushing_for text;
+alter table nominations add column if not exists supporting_files jsonb not null default '[]'::jsonb;
+
+-- Per-touchstone evidence (images / documents / link), all optional
+alter table nomination_answers add column if not exists supporting_files jsonb not null default '[]'::jsonb;
+alter table nomination_answers add column if not exists evidence_url text;
