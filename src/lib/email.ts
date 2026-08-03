@@ -1,4 +1,4 @@
-import { awardTitle } from "./touchstones";
+import { awardTitle, TOUCHSTONES } from "./touchstones";
 import type { NominationPayload } from "./types";
 
 /**
@@ -56,23 +56,51 @@ function buildHtml(payload: NominationPayload, id: string): string {
       id
     )}</td></tr>`
   );
-  if (!isLightkeeper) {
-    const answered = (payload.answers || []).filter(
-      (a) => !a.not_applicable && (a.answer_text || "").trim()
-    ).length;
-    const na = (payload.answers || []).filter((a) => a.not_applicable).length;
-    rows.push(
-      `<tr><td style="padding:6px 0;color:#6b6b60">Touchstones</td><td style="padding:6px 0;font-weight:600">${answered} answered${
-        na ? `, ${na} marked not applicable` : ""
-      }</td></tr>`
-    );
-  }
   if (attachments.length) {
     rows.push(
       `<tr><td style="padding:6px 0;color:#6b6b60;vertical-align:top">Attachments</td><td style="padding:6px 0">${attachments
         .map((n) => esc(n))
         .join("<br>")}</td></tr>`
     );
+  }
+
+  // Full copy of what they wrote, so the email stands alone as their record.
+  const block = (heading: string, body: string, extra = "") =>
+    `<div style="margin:0 0 18px">
+       <p style="margin:0 0 4px;font-size:13px;font-weight:700;color:#4d7a1f">${esc(heading)}</p>
+       <p style="margin:0;font-size:14px;line-height:1.6;color:#2f2f28;white-space:pre-wrap">${esc(body)}</p>
+       ${extra}
+     </div>`;
+
+  let detail = "";
+  if (isLightkeeper) {
+    detail =
+      block("Why this person is chosen", payload.lightkeeper_why || "—") +
+      block("What they have accomplished", payload.lightkeeper_accomplishments || "—") +
+      block("Key achievements", payload.lightkeeper_achievements || "—") +
+      block("What they are pushing for", payload.lightkeeper_pushing_for || "—");
+  } else {
+    detail = TOUCHSTONES.map((t) => {
+      const a = (payload.answers || []).find(
+        (x) => x.touchstone_key === t.key
+      );
+      const body = a?.not_applicable
+        ? "Not Applicable"
+        : (a?.answer_text || "").trim() || "—";
+      const files = (a?.supporting_files || []).map((f) => f.name);
+      const bits: string[] = [];
+      if (files.length)
+        bits.push(`Attached: ${files.map((n) => esc(n)).join(", ")}`);
+      if (a?.evidence_url) bits.push(`Link: ${esc(a.evidence_url)}`);
+      const extra = bits.length
+        ? `<p style="margin:4px 0 0;font-size:12px;color:#8a8a7d">${bits.join(" · ")}</p>`
+        : "";
+      return block(`${t.number}. ${t.name}`, body, extra);
+    }).join("");
+  }
+
+  if (payload.signature_story) {
+    detail += block("Signature story", payload.signature_story);
   }
 
   return `<!doctype html>
@@ -90,6 +118,11 @@ function buildHtml(payload: NominationPayload, id: string): string {
     <table style="width:100%;border-collapse:collapse;background:#fffdf8;border:1px solid #e6ddc9;border-radius:12px;padding:8px">
       <tbody style="font-size:14px">${rows.join("")}</tbody>
     </table>
+
+    <h2 style="margin:26px 0 12px;font-size:15px;color:#2f2f28;border-bottom:1px solid #e6ddc9;padding-bottom:8px">
+      Your submission, as we received it
+    </h2>
+    ${detail}
 
     <p style="margin:20px 0 0;font-size:14px;line-height:1.6;color:#55554b">
       If anything needs correcting, reply to this email quoting your reference
@@ -120,12 +153,50 @@ function buildText(payload: NominationPayload, id: string): string {
       : "",
     `Reference: ${id}`,
     ``,
+    `--- YOUR SUBMISSION, AS WE RECEIVED IT ---`,
+    ``,
+    ...textDetail(payload),
     `If anything needs correcting, reply to this email quoting your reference.`,
     ``,
     `RARE India - ${REPLY_TO}`,
   ]
     .filter(Boolean)
     .join("\n");
+}
+
+/** Plain-text rendering of everything the nominee wrote. */
+function textDetail(payload: NominationPayload): string[] {
+  const out: string[] = [];
+  const isLightkeeper = !payload.answers?.length;
+
+  if (isLightkeeper) {
+    const pairs: [string, string | undefined][] = [
+      ["Why this person is chosen", payload.lightkeeper_why],
+      ["What they have accomplished", payload.lightkeeper_accomplishments],
+      ["Key achievements", payload.lightkeeper_achievements],
+      ["What they are pushing for", payload.lightkeeper_pushing_for],
+    ];
+    for (const [h, b] of pairs) out.push(h.toUpperCase(), b || "-", "");
+  } else {
+    for (const t of TOUCHSTONES) {
+      const a = (payload.answers || []).find((x) => x.touchstone_key === t.key);
+      out.push(`${t.number}. ${t.name.toUpperCase()}`);
+      out.push(
+        a?.not_applicable
+          ? "Not Applicable"
+          : (a?.answer_text || "").trim() || "-"
+      );
+      const files = (a?.supporting_files || []).map((f) => f.name);
+      if (files.length) out.push(`Attached: ${files.join(", ")}`);
+      if (a?.evidence_url) out.push(`Link: ${a.evidence_url}`);
+      out.push("");
+    }
+  }
+
+  if (payload.signature_story) {
+    out.push("SIGNATURE STORY", payload.signature_story, "");
+  }
+  return out;
 }
 
 export async function sendNominationReceipt(
