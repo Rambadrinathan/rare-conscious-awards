@@ -12,6 +12,7 @@ import type { HotelSeed, SupportingFile } from "@/lib/types";
 import { HotelCombobox } from "./HotelCombobox";
 import { TouchstoneIcon } from "./TouchstoneIcon";
 import { EvidenceUploader, TOTAL_UPLOAD_BUDGET } from "./EvidenceUploader";
+import { normalizeUrl } from "@/lib/url";
 
 type AnswerState = {
   touchstone_key: string;
@@ -517,7 +518,14 @@ export function NominationForm() {
                                 evidence_url: e.target.value,
                               })
                             }
-                            placeholder="https://…"
+                            onBlur={(e) =>
+                              updateAnswer(ts.key, {
+                                evidence_url: String(
+                                  normalizeUrl(e.target.value)
+                                ),
+                              })
+                            }
+                            placeholder="www.example.com"
                           />
                         </div>
                         <p className="rare-hint">
@@ -810,7 +818,8 @@ export function NominationForm() {
                 className="rare-input"
                 value={evidenceUrl}
                 onChange={(e) => setEvidenceUrl(e.target.value)}
-                placeholder="https://…"
+                onBlur={(e) => setEvidenceUrl(String(normalizeUrl(e.target.value)))}
+                placeholder="www.example.com"
               />
             </div>
           </div>

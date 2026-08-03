@@ -1,5 +1,23 @@
 import { z } from "zod";
 import { AWARD_CATEGORIES, TOUCHSTONES } from "./touchstones";
+import { normalizeUrl } from "./url";
+
+/**
+ * An optional link field. Accepts "www.example.com" as readily as a full URL,
+ * and treats blank as absent.
+ */
+const optionalUrl = (label: string) =>
+  z.preprocess(
+    normalizeUrl,
+    z.union([
+      z.literal(""),
+      z
+        .string()
+        .url(
+          `${label} does not look like a valid web address. Check it, or leave it blank.`
+        ),
+    ])
+  );
 
 const awardIds = AWARD_CATEGORIES.map((a) => a.id) as [string, ...string[]];
 const touchstoneKeys = TOUCHSTONES.map((t) => t.key) as [string, ...string[]];
@@ -28,11 +46,7 @@ export const nominationSchema = z
     lightkeeper_pushing_for: z.string().optional(),
     signature_story: z.string().optional(),
     sustainability_lead: z.string().optional(),
-    evidence_url: z
-      .string()
-      .url("Please enter a full URL, or leave blank")
-      .optional()
-      .or(z.literal("")),
+    evidence_url: optionalUrl("Additional link").optional(),
     supporting_files: z.array(supportingFileSchema).max(8).optional(),
     consent: z.boolean().refine((v) => v === true, {
       message: "Please confirm that this submission is accurate",
@@ -44,13 +58,13 @@ export const nominationSchema = z
           touchstone_key: z.enum(touchstoneKeys),
           not_applicable: z.boolean(),
           answer_text: z.string(),
-          // Optional per-touchstone evidence
+          // Optional per-touchstone evidence. The URL shape is checked in
+          // superRefine so the error can name the touchstone it belongs to.
           supporting_files: z.array(supportingFileSchema).max(5).optional(),
-          evidence_url: z
-            .string()
-            .url("Please enter a full URL, or leave blank")
-            .optional()
-            .or(z.literal("")),
+          evidence_url: z.preprocess(
+            normalizeUrl,
+            z.union([z.literal(""), z.string()])
+          ).optional(),
         })
       )
       .default([]),
@@ -74,6 +88,29 @@ export const nominationSchema = z
         message: "Up to 3 supporting documents allowed",
       });
     }
+
+    // Per-touchstone links: report which touchstone is at fault.
+    (data.answers || []).forEach((a, i) => {
+      const raw = (a.evidence_url || "").trim();
+      if (!raw) return;
+      let ok = false;
+      try {
+        const u = new URL(raw);
+        ok = u.protocol === "http:" || u.protocol === "https:";
+      } catch {
+        ok = false;
+      }
+      if (!ok) {
+        const ts = TOUCHSTONES.find((t) => t.key === a.touchstone_key);
+        ctx.addIssue({
+          code: "custom",
+          path: ["answers", i, "evidence_url"],
+          message: `The link on "${
+            ts?.name || a.touchstone_key
+          }" does not look like a valid web address. Check it, or leave it blank.`,
+        });
+      }
+    });
 
     if (award?.formStyle === "lightkeeper") {
       if (!data.nominee_name?.trim()) {
