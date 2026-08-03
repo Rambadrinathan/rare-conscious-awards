@@ -156,6 +156,17 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          {!editing && (
+            <a
+              className="rare-btn rare-btn-ghost text-sm"
+              href={`/api/admin/nominations/${nomination.id}/docx?key=${encodeURIComponent(
+                adminKey
+              )}`}
+              title="Word document with photographs embedded — for sharing with the jury"
+            >
+              Download Word
+            </a>
+          )}
           {!editing ? (
             <button
               type="button"
