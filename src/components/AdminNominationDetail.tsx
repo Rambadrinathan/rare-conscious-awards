@@ -352,7 +352,7 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
                           })
                         }
                       />
-                      Not applicable
+                      Not Applicable
                     </label>
                   )}
                   {!a.not_applicable && (
@@ -369,7 +369,7 @@ export function AdminNominationDetail({ nomination, adminKey }: Props) {
               ) : (
                 <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-rare-ink">
                   {a.not_applicable
-                    ? "Not relevant to destination"
+                    ? "Not Applicable"
                     : a.answer_text || "—"}
                 </p>
               )}

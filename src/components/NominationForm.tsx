@@ -205,7 +205,11 @@ export function NominationForm() {
         throw new Error(data.error || "Could not submit nomination");
       }
 
-      router.push(`/thanks?ref=${encodeURIComponent(data.id)}`);
+      router.push(
+        `/thanks?ref=${encodeURIComponent(data.id)}${
+          data.emailed ? "&emailed=1" : ""
+        }`
+      );
     } catch (e) {
       setFormError(e instanceof Error ? e.message : "Something went wrong");
       setSubmitting(false);
@@ -387,7 +391,7 @@ export function NominationForm() {
                 if (validateIdentity()) setStep(2);
               }}
             >
-              {isLightkeeper ? "Continue to Lightkeeper story" : "Continue to Pinwheel"}
+              Continue
             </button>
           </div>
         </section>
@@ -456,7 +460,7 @@ export function NominationForm() {
                           })
                         }
                       />
-                    Not relevant to our destination
+                    Not Applicable
                   </label>
                   {!a.not_applicable && (
                     <textarea
@@ -555,7 +559,7 @@ export function NominationForm() {
                 if (validateTouchstones()) setStep(3);
               }}
             >
-              Continue to evidence
+              Continue
             </button>
           </div>
         </section>
@@ -671,7 +675,7 @@ export function NominationForm() {
                 if (validateLightkeeper()) setStep(3);
               }}
             >
-              Continue to evidence
+              Continue
             </button>
           </div>
         </section>

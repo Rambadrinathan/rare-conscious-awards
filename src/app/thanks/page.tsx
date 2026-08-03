@@ -2,12 +2,14 @@ import Link from "next/link";
 import { PageShell } from "@/components/PageShell";
 
 type Props = {
-  searchParams: Promise<{ ref?: string }>;
+  searchParams: Promise<{ ref?: string; emailed?: string }>;
 };
 
 export default async function ThanksPage({ searchParams }: Props) {
   const params = await searchParams;
   const ref = params.ref;
+  // Only promise a confirmation email when one actually went out.
+  const emailed = params.emailed === "1";
 
   return (
     <PageShell>
@@ -24,6 +26,12 @@ export default async function ThanksPage({ searchParams }: Props) {
             review nominations for the Conscious Travel Awards. We&apos;ll be in
             touch if you are shortlisted.
           </p>
+          {emailed && (
+            <p className="mt-4 text-sm leading-relaxed text-rare-muted">
+              A confirmation has been emailed to you. Please keep it as your
+              record.
+            </p>
+          )}
           {ref && (
             <p className="mt-6 rounded-xl bg-rare-cream px-4 py-3 text-sm text-rare-ink">
               Reference{" "}

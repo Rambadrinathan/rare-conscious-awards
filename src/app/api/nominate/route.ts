@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { nominationSchema } from "@/lib/validation";
 import { saveNomination } from "@/lib/store";
+import { sendNominationReceipt } from "@/lib/email";
 import type { NominationPayload, SupportingFile } from "@/lib/types";
 import type { AwardCategoryId } from "@/lib/touchstones";
 
@@ -72,7 +73,20 @@ export async function POST(request: Request) {
 
     const result = await saveNomination(payload);
 
-    return NextResponse.json({ id: result.id, storage: result.storage });
+    // Confirmation to the submitter (BCC to RARE). Deliberately after the save
+    // and never fatal — a mail outage must not cost someone their nomination.
+    const email = await sendNominationReceipt(payload, result.id);
+    if (!email.sent) {
+      console.warn(
+        `[nominate] receipt not sent for ${result.id}: ${email.reason}`
+      );
+    }
+
+    return NextResponse.json({
+      id: result.id,
+      storage: result.storage,
+      emailed: email.sent,
+    });
   } catch (e) {
     console.error("nominate error", e);
     return NextResponse.json(

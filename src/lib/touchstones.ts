@@ -121,7 +121,7 @@ export const TOUCHSTONES: Touchstone[] = [
 export const AWARD_CATEGORIES = [
   {
     id: "sustainability_lighthouse",
-    title: "Sustainability Lighthouse",
+    title: "RARE Sustainability Lighthouse",
     description:
       "Where sustainability practices, as a whole, set a clear standard — the property that lights the way for planet sensitive and community inclusive hospitality.",
     needsNominee: false,
@@ -129,7 +129,7 @@ export const AWARD_CATEGORIES = [
   },
   {
     id: "sustainability_lightkeeper",
-    title: "Sustainability Lightkeeper",
+    title: "RARE Sustainability Lightkeeper",
     description:
       "For an individual who is pushing forward sustainability — tell us why they are chosen, what they have accomplished, and what they are driving next.",
     needsNominee: true,
@@ -141,8 +141,8 @@ export type AwardCategoryId = (typeof AWARD_CATEGORIES)[number]["id"];
 
 /** Legacy category ids still present on older nominations */
 export const LEGACY_AWARD_TITLES: Record<string, string> = {
-  heros_journey_hotel: "Sustainability Lighthouse (legacy)",
-  heros_journey_individual: "Sustainability Lightkeeper (legacy)",
+  heros_journey_hotel: "RARE Sustainability Lighthouse (legacy)",
+  heros_journey_individual: "RARE Sustainability Lightkeeper (legacy)",
 };
 
 export function awardTitle(id: string): string {

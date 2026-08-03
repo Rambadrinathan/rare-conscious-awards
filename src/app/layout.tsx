@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "RARE India",
     title: "RARE Conscious Travel Awards — Self Nomination",
     description:
-      "Open to all exhibitors at BRIDGES for conscious travel 2026. Sustainability Lighthouse and Lightkeeper awards.",
+      "Open to all exhibitors at BRIDGES for conscious travel 2026. RARE Sustainability Lighthouse and RARE Sustainability Lightkeeper awards.",
     images: [
       {
         url: "/rare-logo.png",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "RARE Conscious Travel Awards — Self Nomination",
     description:
-      "Open to all exhibitors at BRIDGES for conscious travel 2026. Sustainability Lighthouse and Lightkeeper awards.",
+      "Open to all exhibitors at BRIDGES for conscious travel 2026. RARE Sustainability Lighthouse and RARE Sustainability Lightkeeper awards.",
     images: ["/rare-logo.png"],
   },
 };

@@ -31,11 +31,11 @@ export default function HomePage() {
               </strong>
               . Nominate for{" "}
               <strong className="font-semibold text-rare-ink">
-                Sustainability Lighthouse
+                RARE Sustainability Lighthouse
               </strong>{" "}
               (Hotel / Experience) and/or{" "}
               <strong className="font-semibold text-rare-ink">
-                Sustainability Lightkeeper
+                RARE Sustainability Lightkeeper
               </strong>{" "}
               (Individual).
             </p>
