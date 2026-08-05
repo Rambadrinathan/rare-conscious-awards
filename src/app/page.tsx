@@ -59,7 +59,7 @@ export default function HomePage() {
             {[
               {
                 n: "01",
-                t: "Your property",
+                t: "Your hotel",
                 d: "Select your Hotel name, add contact details, choose type of Award (Lighthouse or LightKeeper).",
               },
               {

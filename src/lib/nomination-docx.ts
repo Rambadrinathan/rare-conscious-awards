@@ -305,7 +305,7 @@ export async function buildNominationDocx(
   // ---- who / what --------------------------------------------------------
   const meta: [string, string][] = [
     ["Award", awardTitle(n.award_category)],
-    ["Property", n.hotel_name],
+    ["Hotel", n.hotel_name],
   ];
   if (n.nominee_name)
     meta.push([

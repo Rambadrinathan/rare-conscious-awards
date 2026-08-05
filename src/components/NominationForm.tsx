@@ -222,7 +222,7 @@ export function NominationForm() {
       <div className="mb-8 rare-card p-5">
         <div className="mb-3 flex items-center justify-between text-sm">
           <span className="font-semibold text-rare-ink">
-            {step === 1 && "Step 1 · Your property"}
+            {step === 1 && "Step 1 · Your hotel"}
             {step === 2 &&
               (isLightkeeper
                 ? "Step 2 · The Lightkeeper"
@@ -251,7 +251,7 @@ export function NominationForm() {
         <section className="rare-card space-y-6 p-6 sm:p-8">
           <div>
             <h2 className="text-2xl font-extrabold text-rare-green-deep">
-              Your property
+              Your hotel
             </h2>
             <p className="rare-hint mt-2">
               Select your Hotel name, add contact details, choose type of Award
@@ -602,7 +602,7 @@ export function NominationForm() {
               value={lightkeeperWhy}
               onChange={(e) => setLightkeeperWhy(e.target.value)}
               rows={4}
-              placeholder="What makes them the Lightkeeper for your property?"
+              placeholder="What makes them the Lightkeeper for your hotel?"
             />
             {fieldErrors.lightkeeper_why && (
               <p className="rare-error">{fieldErrors.lightkeeper_why}</p>
@@ -833,7 +833,7 @@ export function NominationForm() {
             />
             <span className="text-sm leading-relaxed text-rare-ink">
               I confirm this nomination is accurate and submitted on behalf of
-              the property named above.
+              the hotel named above.
             </span>
           </label>
 

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "RARE Conscious Travel Awards — Self Nomination",
   description:
-    "Nominate your RARE property for the Conscious Travel Awards, guided by the Pinwheel touchstones.",
+    "Nominate your RARE hotel for the Conscious Travel Awards, guided by the Pinwheel touchstones.",
   icons: {
     icon: [{ url: "/rare-logo.png", type: "image/png" }],
     apple: [{ url: "/rare-logo.png", type: "image/png" }],

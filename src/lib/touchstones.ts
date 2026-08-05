@@ -21,7 +21,7 @@ export const TOUCHSTONES: Touchstone[] = [
     definition:
       "How your hotel reduces energy use and relies on smarter, cleaner, more efficient systems.",
     prompt:
-      "Describe one concrete way your property measures or reduces energy use — lighting, HVAC, renewables, staff habits, or anything real you practise.",
+      "Describe one concrete way your hotel measures or reduces energy use — lighting, HVAC, renewables, staff habits, or anything real you practise.",
     allowNa: true,
   },
   {
@@ -65,7 +65,7 @@ export const TOUCHSTONES: Touchstone[] = [
     definition:
       "How your hotel makes people feel respected, welcomed, and considered, regardless of who they are.",
     prompt:
-      "How does your property practise fairness, accessibility, or non-discrimination for guests and/or staff?",
+      "How does your hotel practise fairness, accessibility, or non-discrimination for guests and/or staff?",
     allowNa: true,
   },
   {
@@ -87,7 +87,7 @@ export const TOUCHSTONES: Touchstone[] = [
     definition:
       "How your hotel protects the natural life around it — plants, animals, habitats, and ecosystems.",
     prompt:
-      "What do you do for nature on or near the property — native planting, wildlife protocols, habitat care, or conservation partners?",
+      "What do you do for nature on or near the hotel — native planting, wildlife protocols, habitat care, or conservation partners?",
     allowNa: true,
   },
   {
@@ -123,7 +123,7 @@ export const AWARD_CATEGORIES = [
     id: "sustainability_lighthouse",
     title: "RARE Sustainability Lighthouse",
     description:
-      "Where sustainability practices, as a whole, set a clear standard — the property that lights the way for planet sensitive and community inclusive hospitality.",
+      "Where sustainability practices, as a whole, set a clear standard — the hotel that lights the way for planet sensitive and community inclusive hospitality.",
     needsNominee: false,
     formStyle: "lighthouse" as const,
   },
