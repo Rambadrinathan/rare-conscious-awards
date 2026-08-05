@@ -40,29 +40,42 @@ function buildHtml(payload: NominationPayload, id: string): string {
     ),
   ];
 
-  const rows: string[] = [
-    `<tr><td style="padding:6px 0;color:#6b6b60">Award</td><td style="padding:6px 0;font-weight:600">${esc(award)}</td></tr>`,
-    `<tr><td style="padding:6px 0;color:#6b6b60">Property</td><td style="padding:6px 0;font-weight:600">${esc(payload.hotel_name)}</td></tr>`,
-  ];
-  if (payload.nominee_name) {
-    rows.push(
-      `<tr><td style="padding:6px 0;color:#6b6b60">Nominee</td><td style="padding:6px 0;font-weight:600">${esc(
+  // A short, human-quotable code rather than a raw UUID.
+  const shortRef = id.slice(0, 8).toUpperCase();
+
+  const summaryLine = [
+    `Reference ${shortRef}`,
+    attachments.length
+      ? `${attachments.length} file${attachments.length === 1 ? "" : "s"} attached`
+      : "",
+  ]
+    .filter(Boolean)
+    .join("&nbsp; ·&nbsp; ");
+
+  // Typographic masthead — no bordered box, no filename dump, no UUID.
+  const summary = `
+    <div style="margin:22px 0 4px;padding:0 0 18px;border-bottom:1px solid #e6ddc9">
+      <p style="margin:0 0 6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#B08A2E;font-weight:700">
+        ${esc(award)}
+      </p>
+      <p style="margin:0;font-size:21px;line-height:1.25;font-weight:700;color:#2f2f28">
+        ${esc(payload.hotel_name)}
+      </p>
+      ${
         payload.nominee_name
-      )}${payload.nominee_role ? ` — ${esc(payload.nominee_role)}` : ""}</td></tr>`
-    );
-  }
-  rows.push(
-    `<tr><td style="padding:6px 0;color:#6b6b60">Reference</td><td style="padding:6px 0;font-family:monospace;font-size:13px">${esc(
-      id
-    )}</td></tr>`
-  );
-  if (attachments.length) {
-    rows.push(
-      `<tr><td style="padding:6px 0;color:#6b6b60;vertical-align:top">Attachments</td><td style="padding:6px 0">${attachments
-        .map((n) => esc(n))
-        .join("<br>")}</td></tr>`
-    );
-  }
+          ? `<p style="margin:6px 0 0;font-size:15px;color:#4d7a1f;font-weight:600">
+               ${esc(payload.nominee_name)}${
+                 payload.nominee_role
+                   ? `<span style="color:#8a8a7d;font-weight:400"> — ${esc(
+                       payload.nominee_role
+                     )}</span>`
+                   : ""
+               }
+             </p>`
+          : ""
+      }
+      <p style="margin:10px 0 0;font-size:12px;color:#8a8a7d">${summaryLine}</p>
+    </div>`;
 
   // Full copy of what they wrote, so the email stands alone as their record.
   const block = (heading: string, body: string, extra = "") =>
@@ -115,11 +128,9 @@ function buildHtml(payload: NominationPayload, id: string): string {
       further is needed from you now. Keep this email as your record.
     </p>
 
-    <table style="width:100%;border-collapse:collapse;background:#fffdf8;border:1px solid #e6ddc9;border-radius:12px;padding:8px">
-      <tbody style="font-size:14px">${rows.join("")}</tbody>
-    </table>
+    ${summary}
 
-    <h2 style="margin:26px 0 12px;font-size:15px;color:#2f2f28;border-bottom:1px solid #e6ddc9;padding-bottom:8px">
+    <h2 style="margin:26px 0 14px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#8a8a7d;font-weight:700">
       Your submission, as we received it
     </h2>
     ${detail}
@@ -144,14 +155,15 @@ function buildText(payload: NominationPayload, id: string): string {
     `Dear ${payload.contact_name}, your nomination has been received.`,
     `Nothing further is needed from you now. Keep this email as your record.`,
     ``,
-    `Award:     ${awardTitle(payload.award_category)}`,
-    `Property:  ${payload.hotel_name}`,
+    `${awardTitle(payload.award_category)}`,
+    `${payload.hotel_name}`,
     payload.nominee_name
-      ? `Nominee:   ${payload.nominee_name}${
+      ? `${payload.nominee_name}${
           payload.nominee_role ? ` - ${payload.nominee_role}` : ""
         }`
       : "",
-    `Reference: ${id}`,
+    ``,
+    `Reference ${id.slice(0, 8).toUpperCase()}`,
     ``,
     `--- YOUR SUBMISSION, AS WE RECEIVED IT ---`,
     ``,
