@@ -117,7 +117,13 @@ function buildHtml(payload: NominationPayload, id: string): string {
   }
 
   return `<!doctype html>
-<html><body style="margin:0;background:#F6F1E6;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#2f2f28">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nomination received</title>
+</head>
+<body style="margin:0;background:#F6F1E6;font-family:'Nunito Sans',Helvetica,Arial,sans-serif;color:#2f2f28">
   <div style="max-width:600px;margin:0 auto;padding:28px 20px">
     <p style="margin:0 0 6px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#B08A2E">
       Conscious Travel Awards
